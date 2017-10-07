@@ -71,7 +71,6 @@ def user_login(request):
                 user_form.add_error(None, "Incorrect email or password!")
 
     context_dict["form"] = user_form
-
     return render(request, "registration/login.html", context_dict)
 
 @login_required
