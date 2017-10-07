@@ -8,18 +8,9 @@
 {% block body_block %}
     <div class="container">
 
-      <form class="form-signin" method="post" action="{% url 'registration:user_login' %}">
-	    {% csrf_token %} 
         <h2 class="form-signin-heading">Login to Ethefux</h2>
-        
-		<label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 
-		<label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-		
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+        {% include "helpers/form.html" with submit_value="Sign In" %}
 
     </div>
 

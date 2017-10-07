@@ -95,7 +95,7 @@ def acceptContract(request):
                 if(accepted is not None):
                     if accepted == True:
                         # Try to deploy the contract
-                        pass
+                        deployContract(request)
                 else:
                     # Decline the proposed contract and notify other parties
                     pass
