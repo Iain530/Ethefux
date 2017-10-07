@@ -5,7 +5,7 @@ contract Loan {
     address private _debtor;
     uint256 private _amount;
     uint256 private _durationMonths; // 30 days
-    uint256 private _creationTime; //etch github work ethereumetch github work ethereum
+    uint256 private _creationTime;
     uint256 private _interestRate; // in 0.01% monthly
     uint256 private _monthsToPayLeft;
     uint256 private _monthlyPayment;
