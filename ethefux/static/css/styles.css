@@ -1,7 +1,29 @@
 ul#navbar {
-	
+	position: fixed;
+	top: 0;
+	margin: 0;
+	width: 110%;
+	left: -10px;
+	background-color: #379634;
 }
 
 ul#navbar li {
 	display: inline-block;
+}
+
+ul#navbar li#logo {
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 50px 0 0;
+}
+
+ul#navbar li.link {
+	text-align: center;
+	width: 60px;
+	padding: 15px 10px;
+}
+
+body {
+	position: relative;
+	top: 100px;
 }
