@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block css %}
+<link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet">
+{% endblock %}
+
 {% block title_block %}
 	Login
 {% endblock %}
 
 {% block body_block %}
-	<h1>Login to Ethefux</h1>
-	<form id="login_form" method="post" action="{% url 'registration:user_login' %}">
-		{% csrf_token %}
-		Username: <input type="text" name="username" value="" size="50" />
-		<br />
-		Password: <input type="password" name="password" value="" size="50" />
-		<br />
-		<input type="submit" value="submit" />
-</form>
+    <div class="container">
+
+      <form class="form-signin" method="post" action="{% url 'registration:user_login' %}">
+        <h2 class="form-signin-heading">Login to Ethefux</h2>
+        <br>
+		<label for="inputEmail" class="sr-only">Username</label>
+        <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+        <br>
+		<label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div>
+
+
 {% endblock %}

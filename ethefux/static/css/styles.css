@@ -1,7 +1,23 @@
 nav.navbar {
-	background-color: #94E8B4;
+	background-color: #265911;
+	font-size: 20px;
 }
 
-a {
-	color: black;
+body.ethefux .navbar a.nav-link {
+	color: #030303;
+	transition: 0.2s;
+}
+
+body.ethefux .navbar a.nav-link:hover {
+	color: #595F72;
+	transition: 0.2s;
+}
+
+.ethefux .container {
+	position: relative;
+	top: 60px;
+}
+
+body.ethefux {
+	background-color: white;	
 }
