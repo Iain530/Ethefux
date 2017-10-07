@@ -7,5 +7,22 @@
 {% endblock %}
 
 {% block body_block %}
-	BODY
+	<h1>Update your Ethefux profile</h1>
+
+	<div class="box_center">
+
+			<form id="registration_form" method="post" action="{% url 'registration:user_register' %}">
+				{% csrf_token %}
+				Name: <input class="register_form" type="text" name="name" value="" size="50" />
+						<br />
+				Username: <input class="register_form" type="text" name="username" value="" size="50" />
+				<br />
+				Password: <input class="register_form" type="password" name="password" value="" size="50" />
+				<br />
+
+				<!-- Provide a button to click to submit the form. -->
+				<input type="submit" name="submit" value="Register" />
+			</form>
+
+	</div>
 {% endblock %}
