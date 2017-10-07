@@ -4,5 +4,5 @@ from ethefux_app import views
 app_name = 'ethefux_app'
 
 urlpatterns = [
-
+	url(r'^$', views.index, name='index'),
 ]
