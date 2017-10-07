@@ -114,4 +114,4 @@ def user_update(request):
 
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("ethefux_app:index"))

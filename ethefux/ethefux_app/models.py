@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
-from web3 import Web3, IPCProvider
+from web3 import Web3, HTTPProvider
 from django.db import models
 from ethefux.settings import ENABLE_ETH
 
-web3 = Web3(IPCProvider(testnet=True))
+web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
