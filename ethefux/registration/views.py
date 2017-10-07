@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from ethefux_app.models import UserProfile
 
 def user_register(request):
+    registered = False
     user_form = RegistrationForm()
 
     # If we are getting a new user
@@ -22,6 +23,8 @@ def user_register(request):
             email = user_form.cleaned_data.get("email")
             password = user_form.cleaned_data.get("password")
             password_confirm = user_form.cleaned_data.get("password_confirm")
+            
+            registered = True
 
             if password == password_confirm:
                 if email is not "":
@@ -65,9 +68,11 @@ def user_login(request):
             else:
                 user_form.add_error(None, "Incorrect email or password!")
 
-    context_dict["form"] = user_form
+    #context_dict["form"] = user_form
 
-    return render(request, "registration/login.html", context_dict)
+    return render(request, 'rango/register.html', {'user_form':user_form, 'profile_form': profile_form, 'registered': registered})
+
+    #return render(request, "registration/login.html", context_dict)
 
 @login_required
 
