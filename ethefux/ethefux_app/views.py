@@ -5,4 +5,4 @@ from django.contrib.auth.models import User
 
 def index(request):
     context_dict = {}
-    return render(request, 'ethefux_app/home.html', context_dict)
+    return render(request, 'index.html', context_dict)
