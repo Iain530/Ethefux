@@ -14,6 +14,9 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 # Propose a contract to a debtor
 @login_required
