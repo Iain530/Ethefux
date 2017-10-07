@@ -5,10 +5,10 @@ from django.core.validators import EmailValidator, RegexValidator
 PasswordValidator = RegexValidator(r'[\w ._,!\/$\-@#%\^&*+?]+')
 
 class LoginForm(forms.Form):
-    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),
+    email = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Email address', 'autofocus':'1'}),
                             max_length=150, validators=[EmailValidator], label="")
 
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}),
                                max_length=150, validators=[PasswordValidator], label="")
 
     class Meta:
@@ -17,17 +17,17 @@ class LoginForm(forms.Form):
 
 class RegistrationForm(forms.Form):
     name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Name', 'autofocus':'1'}),
         max_length=150, validators=[UnicodeUsernameValidator])
 
-    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}),
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':'Email address'}),
                             max_length=150, validators=[EmailValidator])
 
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                               max_length=150, min_length=10, validators=[PasswordValidator])
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password'}),
+                               max_length=150, min_length=10, validators=[PasswordValidator] )
 
     password_confirm = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}), max_length=150,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Confirm password'}), max_length=150,
         validators=[PasswordValidator], label="Confirm Password")
 
     class Meta:
@@ -35,7 +35,7 @@ class RegistrationForm(forms.Form):
 
 class UpdateForm(forms.Form):
     name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        widget=forms.TextInput(attrs={'class': 'form-control', }),
         max_length=150, validators=[UnicodeUsernameValidator])
 
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}),
