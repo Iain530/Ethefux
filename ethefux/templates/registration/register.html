@@ -6,19 +6,27 @@
 {% endblock %}
 
 {% block body_block %}
-	<h1>About Page</h1>
-	{% if registered %}
-		<strong>Thank you for registering.</strong>
-		<a href="{% url 'ethefux_app:index' %}">Return to the homepage.</a><br />
-	{% else %}
-		<strong>Register here.</strong><br />
-		<form id="registration_form" method="post" action="{% url 'registration:user_register' %}"
-			enctype="multipart/form-data">
+	<h1>Register to Ethefux</h1>
+	
+	<div class="box_center">
+	
+		{% if registered %}
+			<strong>Thank you for registering.</strong>
+			<a href="{% url 'ethefux_app:index' %}">Return to the homepage.</a><br />
+		{% else %}
+			<form id="registration_form" method="post" action="{% url 'registration:user_register' %}">
+				{% csrf_token %}
+				Name: <input class="register_form" type="text" name="name" value="" size="50" />
+						<br />
+				Username: <input class="register_form" type="text" name="username" value="" size="50" />
+				<br />
+				Password: <input class="register_form" type="password" name="password" value="" size="50" />
+				<br />
 
-		{% csrf_token %}
-
-		<!-- Provide a button to click to submit the form. -->
-		<input type="submit" name="submit" value="Register" />
-	</form>
-	{% endif %}
+				<!-- Provide a button to click to submit the form. -->
+				<input type="submit" name="submit" value="Register" />
+			</form>
+		{% endif %}
+		
+	</div>
 {% endblock %}

@@ -1,7 +1,7 @@
-ul#navbar {
-	
+nav.navbar {
+	background-color: #94E8B4;
 }
 
-ul#navbar li {
-	display: inline-block;
+a {
+	color: black;
 }

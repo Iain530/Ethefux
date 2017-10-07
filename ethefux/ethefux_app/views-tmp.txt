@@ -3,16 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from ethefux_app.forms import LoanForm
-from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
 
 def index(request):
     context_dict = {}
     return render(request, 'index.html', context_dict)
-
-
-def about(request):
-    return render(request, 'about.html')
 
 
 # Propose a contract to a debtor
@@ -84,4 +78,6 @@ def acceptContract(request):
 def deployContract(request):
     if request.method == "POST":
         contractid = request.POST.get("contract_id")
+
+        
 
