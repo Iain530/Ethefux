@@ -9,7 +9,9 @@ contract Loan {
     uint256 private _interestRate; // in 0.01% monthly
     uint256 private _monthsToPayLeft;
     uint256 private _monthlyPayment;
-
+    address private _amendmentProposal;
+    bool private _amendmentInPlace;
+    address private _amendmentProposer;
     function Loan(address lender,address debtor,uint256 amount,uint256 durationMonths,uint256 interestRate) public {
         _lender = lender;
         _debtor = debtor;
@@ -19,6 +21,8 @@ contract Loan {
         _interestRate = interestRate;
         _monthsToPayLeft = durationMonths; 
         _monthlyPayment = amount+amount*interestRate;
+        _amendmentProposal = 0 ;
+        _amendmentInPlace = false;
     }
     
     // getters
@@ -40,24 +44,39 @@ contract Loan {
     }
 
     function getMonthsLeft() public constant returns (uint256 monthsLeft){
-
+        return monthsLeft=_monthsToPayLeft;
     }
+
     function getInterestRate() public constant returns (uint256 interestRate){
         return interestRate = _interestRate;
     }
 
     //sends transaction to the contract
     function () payable public {
+        if(_amendmentInPlace) throw;
         if(msg.sender != _debtor) throw;
         if(msg.value != _monthlyPayment) throw;
         if(_monthsToPayLeft == 0) throw;
         _monthsToPayLeft--;
     }
 
-    function claimPaid() public returns (bool success){
+    //claims from transaction
+    function claimPaid() public {
         if(msg.sender != _lender) throw;
         _lender.send(this.balance);
     }
 
+    function amendmentPropose(address amendment) public {
+        if(msg.sender != _lender && msg.sender != _debtor && !_amendmentInPlace) throw;
+        _amendmentProposal = amendment;
+        _amendmentProposer = msg.sender;
+    }
 
+    function amendmentAccept() public {
+        if(msg.sender != _debtor && msg.sender != _lender) throw;
+        if(_amendmentProposer == _lender && msg.sender != _debtor) throw;
+        if(_amendmentProposer == _debtor && msg.sender != _lender) throw;
+        _amendmentInPlace = true;
+        selfdestruct(_amendmentProposal);
+    }
 }
