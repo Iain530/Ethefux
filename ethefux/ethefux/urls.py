@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('ethefux_app.urls')),
     url(r'^registration/', include('registration.urls', namespace="registration")),
+    url(r'^login/$', views.user_login, name='login')
 
     # Error pages
     url(r'400', TemplateView.as_view(template_name='errors/400.html'), name="400"),
