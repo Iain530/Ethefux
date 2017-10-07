@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head lang="en">
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+
+	<!-- Bootstrap core CSS -->
+	<link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+	
+	<title>
+	Ethefux - 
+	{% block title_block %}
+	{% endblock %}
+	</title>
+</head>
+
+<body>
+	<!-- navbar -->
+
+	
+	<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="{% url 'ethefux_app:index' %}">
+			<img src="{% static 'img/ethefux_logo.png' %}" alt="logo"/> 
+		</a>
+
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+		
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'ethefux_app:index' %}">Home</a>
+				</li>
+    
+				{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'registration:user_update' %}">Logout</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'registration:user_logout' %}">Logout</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'registration:user_login' %}">Login</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'registration:user_register' %}">Register</a>
+					</li>   
+				{% endif %}
+			</ul>
+		</div>
+	</nav>
+	
+
+	
+	
+	<div class="container">
+	{% block body_block %}
+	{% endblock %}
+	</div>
+	
+</body>
+
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+</script>
+<script
+src="http://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js">
+</script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src= "http://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+
+</html>
