@@ -24,6 +24,7 @@ def user_register(request):
             password = user_form.cleaned_data.get("password")
             password_confirm = user_form.cleaned_data.get("password_confirm")
             home_address = user_form.cleaned_data.get("home_address")
+
             
             registered = True
 
@@ -65,7 +66,7 @@ def user_login(request):
 
             if (user):
                 login(request, user)
-                return HttpResponseRedirect(reverse("app:dashboard"))
+                return HttpResponseRedirect(reverse("ethefux_app:dashboard"))
             else:
                 user_form.add_error(None, "Incorrect email or password!")
 
@@ -97,11 +98,10 @@ def user_update(request):
                         new_user.set_password(password)
                         new_user.save()
 
-                        profile = UserProfile.objects.create(user=new_user)
                         profile.name = name
                         profile.save()
 
-                        return HttpResponseRedirect(reverse("registration:user_login"))
+                        return HttpResponseRedirect(reverse("ethefux_app:dashboard"))
                     else:
                         user_form.add_error("email", 'That user already exists! Are you sure you don\'t already have an account?')
                 else:
@@ -113,4 +113,4 @@ def user_update(request):
 
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("ethefux_app:index"))

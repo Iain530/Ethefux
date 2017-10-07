@@ -1,0 +1,58 @@
+{% load filters %}
+
+{% if form %}
+<form role="form" method="post" action="{% if action %}{{action}}{% else %}.{%endif%}">
+
+        {% csrf_token %}
+        {% autoescape off %}
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissable fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {# Include the hidden fields #}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {# Include the visible fields #}
+            {% for field in form.visible_fields %}
+
+                {# Show an alert if there are errors in this field #}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="form-group{% if field.errors %}has-error{% endif %}">
+
+                    {% if postfix %}
+                        {{ field }} {{ field.label }}
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+
+                    {% if field.help_text %}
+                        <span class="help">
+                            {{ field.help_text }}
+                        </span>
+                    {% endif %}
+                </div>
+
+            {% endfor %}
+        {% endautoescape %}
+
+        {% block extra %}{% endblock %}
+
+        <input type="submit" class="btn btn-lg btn-block btn-primary"  value="{% if submit_value %}{{ submit_value }}{% else %}Submit{% endif %}"/>
+    </form>
+{% endif %}
+

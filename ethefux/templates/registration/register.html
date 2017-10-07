@@ -9,28 +9,12 @@
 	
 	<div class="container">
 	
+		<h2 class="form-signin-heading">Register to Ethefux</h2>
 		{% if registered %}
 			<strong>Thank you for registering.</strong>
 			<a href="{% url 'ethefux_app:index' %}">Return to the homepage.</a><br />
 		{% else %}
-			<form id="user_form" class="form-signin" method="post" action="{% url 'registration:user_register' %}">
-				<h2 class="form-signin-heading">Register to Ethefux</h2>
-				<br>
-				{% csrf_token %}
-				
-				{% for field in form %}
-					<div class="fieldWrapper">
-						{{ field.errors }}
-						{{ field.label_tag }} {{ field }}
-						{% if field.help_text %}
-						<p class="help">{{ field.help_text|safe }}</p>
-						{% endif %}
-					</div>
-				{% endfor %}
-				
-				<br>
-				<input class="btn btn-lg btn-primary btn-block" type="submit" name="submit" value="Register" />
-			</form>
+            {% include "helpers/form.html" with submit_value="Register"%}	
 		{% endif %}
 		
 	</div>

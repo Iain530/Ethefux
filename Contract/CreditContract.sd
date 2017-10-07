@@ -3,15 +3,19 @@ pragma solidity ^0.4.17;
 contract Loan {
     address private _lender;
     address private _debtor;
+    
     uint256 private _amount;
-    uint256 private _durationMonths; // 30 days
     uint256 private _creationTime;
     uint256 private _interestRate; // in 0.01% monthly
+
+    uint256 private _durationMonths; // 30 days
     uint256 private _monthsToPayLeft;
     uint256 private _monthlyPayment;
+
     address private _amendmentProposal;
     bool private _amendmentInPlace;
     address private _amendmentProposer;
+
     function Loan(address lender,address debtor,uint256 amount,uint256 durationMonths,uint256 interestRate) public {
         _lender = lender;
         _debtor = debtor;

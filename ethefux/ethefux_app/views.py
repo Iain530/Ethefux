@@ -14,6 +14,12 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+def account(request):
+    return render(request, 'account.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 # Propose a contract to a debtor
 @login_required
@@ -95,7 +101,7 @@ def acceptContract(request):
                 if(accepted is not None):
                     if accepted == True:
                         # Try to deploy the contract
-                        pass
+                        deployContract(request)
                 else:
                     # Decline the proposed contract and notify other parties
                     pass

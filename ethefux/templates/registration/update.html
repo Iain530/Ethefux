@@ -7,21 +7,14 @@
 {% endblock %}
 
 {% block body_block %}
-	<h1>Update your Ethefux profile</h1>
 
 	<div class="box_center">
 
 			<form id="registration_form" method="post" action="{% url 'registration:user_register' %}">
+			<h2 class="form-signin-heading">Update your Ethefux profile</h2>
 				{% csrf_token %}
-				Name: <input class="register_form" type="text" name="name" value="" size="50" />
-						<br />
-				Username: <input class="register_form" type="text" name="username" value="" size="50" />
-				<br />
-				Password: <input class="register_form" type="password" name="password" value="" size="50" />
-				<br />
+				{% include "helpers/form.html" with submit_value="Update"%}
 
-				<!-- Provide a button to click to submit the form. -->
-				<input type="submit" name="submit" value="Register" />
 			</form>
 
 	</div>
