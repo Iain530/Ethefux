@@ -1,3 +1,4 @@
+/* BASE.html css */
 ul#navbar {
 	font-family: 'Questrial', sans-serif;
 	font-size: 20px;
@@ -7,7 +8,7 @@ ul#navbar {
 	margin: 0;
 	width: 110%;
 	background-color: #72BDA3;
-	padding: 5px 20px;
+	padding: 5px 20px 5px 10%;
 }
 
 ul#navbar a {
@@ -36,11 +37,27 @@ ul#navbar li.link {
 	padding: 15px 10px;
 }
 
-ul#navbar li.link:hover {
-
-}
-
 body {
 	position: relative;
-	top: 100px;
+	top: 75px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
 }
+/* -------------------------------------------- */
+
+/* GENERAL */
+h1 {
+	font-family: 'Work Sans', sans-serif;
+	font-size: 60px;
+	margin: 10px 0px;
+
+}
+
+/* INDEX */
+
+.body_block {
+	width: 85%;
+	margin: 0 auto;
+}
+
+
