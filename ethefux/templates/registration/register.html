@@ -1,4 +1,4 @@
-{% extends 'ethefux/base.html' %}
+{% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -9,10 +9,10 @@
 	<h1>About Page</h1>
 	{% if registered %}
 		<strong>Thank you for registering.</strong>
-		<a href="{% url 'index' %}">Return to the homepage.</a><br />
+		<a href="{% url 'ethefux_app:index' %}">Return to the homepage.</a><br />
 	{% else %}
 		<strong>Register here.</strong><br />
-		<form id="registration_form" method="post" action="{% url 'register' %}"
+		<form id="registration_form" method="post" action="{% url 'registration:user_register' %}"
 			enctype="multipart/form-data">
 
 		{% csrf_token %}

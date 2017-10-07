@@ -14,8 +14,22 @@
 
 <body>
 	<!-- navbar -->
-	<ul>
-	
+	<ul id="navbar">
+		<li>
+			<a href="{% url 'ethefux_app:index' %}">Home</a>
+		</li>
+		{% if not user.is_authenticated %} 
+		<li>
+			<a href="{% url 'registration:user_login' %}">Login</a>
+		</li>
+		<li>
+			<a href="{% url 'registration:user_register' %}">Register</a>
+		</li>
+		{% else %}
+		<li>
+			<a href="{% url 'registration:user_logout' %}">Logout</a>
+		</li>
+		{% endif %}
 	</ul>
 	
 	{% block body_block %}
