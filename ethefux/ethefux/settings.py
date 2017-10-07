@@ -28,6 +28,8 @@ SECRET_KEY = '_3=-ubct40+*16a@83d&nm3149c2&==+e@u3vpxly=zs&j3mp5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ENABLE_ETH = False
+
 ALLOWED_HOSTS = []
 
 
