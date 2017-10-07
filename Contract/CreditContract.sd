@@ -1,45 +1,82 @@
 pragma solidity ^0.4.17;
 
-contract CreditInterface {
-    mapping(address => uint256) rating;
-    function repay(Loan l,uint256 repayment) public constant returns (bool success) {
-
-    }
-}
-
 contract Loan {
     address private _lender;
     address private _debtor;
     uint256 private _amount;
-    uint256 private _creditGain;
-    uint256 private _penalty;
-    uint256 private _durationMonths;
-
-    function Loan(address lender,address debtor,uint256 amount,uint256 creditGain,uint256 durationMonths) public {
+    uint256 private _durationMonths; // 30 days
+    uint256 private _creationTime; //etch github work ethereumetch github work ethereum
+    uint256 private _interestRate; // in 0.01% monthly
+    uint256 private _monthsToPayLeft;
+    uint256 private _monthlyPayment;
+    address private _amendmentProposal;
+    bool private _amendmentInPlace;
+    address private _amendmentProposer;
+    function Loan(address lender,address debtor,uint256 amount,uint256 durationMonths,uint256 interestRate) public {
         _lender = lender;
         _debtor = debtor;
         _amount = amount;
-        _creditGain = creditGain;
-        _penalty = 0; // TODO how are we calculating penalty
         _durationMonths = durationMonths;
+        _creationTime = now;
+        _interestRate = interestRate;
+        _monthsToPayLeft = durationMonths; 
+        _monthlyPayment = amount+amount*interestRate;
+        _amendmentProposal = 0 ;
+        _amendmentInPlace = false;
     }
+    
     // getters
 
-    function getPenalty() public constant returns (uint256 penalty) {
-        return penalty = _penalty;
+    function getLender() public constant returns (address lender){
+        return lender = _lender;
+    }
+
+    function getDebtor() public constant returns (address debtor){
+        return debtor = _debtor;
     }
 
     function getAmount() public constant returns (uint256 amount){
         return amount = _amount;
     }
 
-    function getCreditGain() public constant returns (uint256 creditGain){
-        return creditGain = _creditGain;
+    function getDurationMonths() public constant returns (uint256 durationMonths){
+        return durationMonths = _durationMonths;
     }
 
-    //repay function
-    //how are we calculating the new score????????
-    function repay(uint256 _repayment) public constant returns (bool success){
-        
+    function getMonthsLeft() public constant returns (uint256 monthsLeft){
+        return monthsLeft=_monthsToPayLeft;
+    }
+
+    function getInterestRate() public constant returns (uint256 interestRate){
+        return interestRate = _interestRate;
+    }
+
+    //sends transaction to the contract
+    function () payable public {
+        if(_amendmentInPlace) throw;
+        if(msg.sender != _debtor) throw;
+        if(msg.value != _monthlyPayment) throw;
+        if(_monthsToPayLeft == 0) throw;
+        _monthsToPayLeft--;
+    }
+
+    //claims from transaction
+    function claimPaid() public {
+        if(msg.sender != _lender) throw;
+        _lender.send(this.balance);
+    }
+
+    function amendmentPropose(address amendment) public {
+        if(msg.sender != _lender && msg.sender != _debtor && !_amendmentInPlace) throw;
+        _amendmentProposal = amendment;
+        _amendmentProposer = msg.sender;
+    }
+
+    function amendmentAccept() public {
+        if(msg.sender != _debtor && msg.sender != _lender) throw;
+        if(_amendmentProposer == _lender && msg.sender != _debtor) throw;
+        if(_amendmentProposer == _debtor && msg.sender != _lender) throw;
+        _amendmentInPlace = true;
+        selfdestruct(_amendmentProposal);
     }
 }
