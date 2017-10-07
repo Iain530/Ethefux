@@ -1,3 +1,8 @@
+body {
+	background-image: url("../img/background.jpg");
+
+}
+
 nav.navbar {
 	background-color: #409665;
 }
@@ -45,4 +50,14 @@ body.ethefux #user_form {
 
 body.ethefux button:hover, body.ethefux .btn:hover {
 	cursor: pointer;
+}
+
+.wrap-center {
+	text-align:center;
+	width: 100%;
+}
+
+#flt {
+	border-radius: 4px;
+	
 }
