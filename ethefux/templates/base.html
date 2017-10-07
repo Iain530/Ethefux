@@ -9,6 +9,9 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	
 
 	
 
@@ -47,11 +50,21 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'ethefux_app:index' %}">Home</a>
 				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'ethefux_app:about' %}">About Us</a>
+				</li>
+				
     
 				{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'registration:user_update' %}">Update Profile</a>
 					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'ethefux_app:dashboard' %}">Dashboard</a>
+					</li>
+					
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'registration:user_logout' %}">Logout</a>
 					</li>
