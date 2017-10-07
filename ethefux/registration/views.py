@@ -69,11 +69,8 @@ def user_login(request):
             else:
                 user_form.add_error(None, "Incorrect email or password!")
 
-    #context_dict["form"] = user_form
-
-    return render(request, 'rango/register.html', {'user_form':user_form, 'profile_form': profile_form, 'registered': registered})
-
-    #return render(request, "registration/login.html", context_dict)
+    context_dict["form"] = user_form
+    return render(request, "registration/login.html", context_dict)
 
 @login_required
 def user_update(request):
