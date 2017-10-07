@@ -19,14 +19,14 @@
 		{% else %}
 			<form class="form-signin" method="post" action="{% url 'registration:user_register' %}">
 				<h2 class="form-signin-heading">Register to Ethefux</h2>
-				<br>
+			
 				{% csrf_token %}
 				<input placeholder="Name" class="form-control" type="text" name="name" value="" size="50" required autofocus/>	
 				<input placeholder="Username" class="form-control" type="text" name="username" value="" size="50" required/>
-                                <input placeholder="Email" class="form-control" type="text" name="email" value="" size="50" required/>
+                <input placeholder="Email" class="form-control" type="text" name="email" value="" size="50" required/>
 				<input placeholder="Password" id="inputPassword" class="form-control" type="password" name="password" value="" size="50" required/>
-                                <input placeholder="Home Address" class="form-control" type="text" name="home_address" value="" size="50" required/>
-				<br>
+                <input placeholder="Home Address" class="form-control" type="text" name="home_address" value="" size="50" required/>
+				
 				<!-- Provide a button to click to submit the form. -->
 				<input class="btn btn-lg btn-primary btn-block" type="submit" name="submit" value="Register" />
 			</form>

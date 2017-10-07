@@ -2,6 +2,9 @@ nav.navbar {
 	background-color: #409665;
 }
 
+body.ethefux a.navbar-brand {
+	margin-left: 8.5%;
+}
 
 body.ethefux .navbar a.nav-link {
 	color: #030303;
@@ -9,7 +12,7 @@ body.ethefux .navbar a.nav-link {
 }
 
 body.ethefux .navbar a.nav-link:hover {
-	color: #f2ede6;
+	color: #f2f2f2;
 	transition: 0.2s;
 }
 
@@ -20,4 +23,8 @@ body.ethefux .navbar a.nav-link:hover {
 
 body.ethefux {
 	background-color: #f2ede6;	
+}
+
+input.form-control {
+	margin: 10px 0;
 }
