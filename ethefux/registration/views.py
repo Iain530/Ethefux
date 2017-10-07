@@ -24,6 +24,7 @@ def user_register(request):
             password = user_form.cleaned_data.get("password")
             password_confirm = user_form.cleaned_data.get("password_confirm")
             home_address = user_form.cleaned_data.get("home_address")
+
             
             registered = True
 

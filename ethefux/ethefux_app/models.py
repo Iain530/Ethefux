@@ -9,7 +9,7 @@ web3 = Web3(IPCProvider(testnet=True))
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    identification = models.ImageField()
+    identification = models.ImageField(blank=True, null=True)
     home_address = models.CharField(max_length=300)
     wallet = models.ForeignKey("Wallet")
     credit_score = models.IntegerField(default=100)
