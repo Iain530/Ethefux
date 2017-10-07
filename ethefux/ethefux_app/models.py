@@ -38,11 +38,11 @@ class Contract(models.Model):
 # A proposed contract between some parties, will be deployed after all parties confirm
 class ContractProposal(models.Model):
    loaner = models.ForeignKey("UserProfile")
-   amount = models.DecimalField()
+   amount = models.DecimalField(decimal_places=4,max_digits=100)
 
    # Duration in months
    duration = models.IntegerField()
-   interest_rate = models.DecimalField()
+   interest_rate = models.DecimalField(decimal_places=5,max_digits=20)
    
 # A confirmation by a party for a contract
 class DeployConfirmation(models.Model):
