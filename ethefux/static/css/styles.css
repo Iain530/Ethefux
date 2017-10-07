@@ -1,10 +1,11 @@
 body {
-	background-image: url("../img/background.jpg");
-
+	background-image: url("../img/background2.jpg");
+	background-position: bottom-right;
+	background-repeat: no-repeat;
 }
 
 nav.navbar {
-	background-color: #409665;
+	background-color: #c7d9ff;
 }
 
 .content {
@@ -17,7 +18,7 @@ nav.navbar {
 }
 
 body.ethefux a.navbar-brand {
-	margin-left: 8.5%;
+	margin-left: 4%;
 }
 
 body.ethefux .navbar a.nav-link {
