@@ -17,6 +17,9 @@
 
 		{% csrf_token %}
 
+                <!-- Display form -->
+                {{ RegistrationForm.as_p }}
+
 		<!-- Provide a button to click to submit the form. -->
 		<input type="submit" name="submit" value="Register" />
 	</form>
