@@ -33,4 +33,5 @@ class RegistrationForm(forms.Form):
     class Meta:
         fields = ('name', 'email', 'password')
 
-
+class UpdateFrom(forms.Form):
+    pass

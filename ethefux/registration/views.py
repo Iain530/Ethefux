@@ -70,7 +70,6 @@ def user_login(request):
     return render(request, "registration/login.html", context_dict)
 
 @login_required
-
 def user_update(request):
     user_form = UpdateForm()
 

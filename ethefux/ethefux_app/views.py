@@ -70,11 +70,34 @@ def acceptContract(request):
     context_dict = {}
 
     if request.method == "POST":
-        # Check if user is part of the contract
-        # Check if user has accepted or declined
-            # Try to deploy the contract
-            # Delete the proposed contract and notify other parties
-        pass
+        contractid = request.POST.get("contract_id")
+        proposal = ContractProposal.objects.get(id=contractid)
+        
+        if(proposal is not None):
+            # Check if user is part of the contract
+            present = False
+
+            if proposal.loaner != request.user.userprofile:
+                parties = DeployConfirmations.objects.filter(contract=proposal)
+
+                for party in parties:
+                    if party.confirmer == request.user.userprofile:
+                        present = True
+                        break
+            else:
+                present = True
+
+            if(present==True):
+                
+                # Check if user has accepted or declined
+                accepted = request.POST.get("accepted")
+                
+                if(accepted is not None):
+                    if accepted == True:
+                        # Try to deploy the contract
+                else:
+                    # Decline the proposed contract and notify other parties
+                    pass
 
     return render(request, "ethefux_app/accept_contract.html", context_dict)
     
@@ -84,4 +107,18 @@ def acceptContract(request):
 def deployContract(request):
     if request.method == "POST":
         contractid = request.POST.get("contract_id")
+        proposal = ContractProposal.objects.get(id=contractid)
+
+        if(proposal):
+            confirmations = DeployConfirmation.objects.filter(contract=proposal)
+            
+            for confirmation in confirmations:
+                if confirmation.confirmed != True
+                    # Can't deploy contract as parties are not agreed
+                    return False
+
+            # Deploy Contract
+            return True
+    return False
+
 
