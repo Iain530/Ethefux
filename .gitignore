@@ -1,2 +1,7 @@
 *.pyc
 *.sqlite3
+*.bin
+*.abi
+*.log
+.static_storage/
+.media/
