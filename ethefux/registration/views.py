@@ -98,11 +98,10 @@ def user_update(request):
                         new_user.set_password(password)
                         new_user.save()
 
-                        profile = UserProfile.objects.create(user=new_user)
                         profile.name = name
                         profile.save()
 
-                        return HttpResponseRedirect(reverse("registration:user_login"))
+                        return HttpResponseRedirect(reverse("ethefux_app:dashboard"))
                     else:
                         user_form.add_error("email", 'That user already exists! Are you sure you don\'t already have an account?')
                 else:
@@ -114,4 +113,4 @@ def user_update(request):
 
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("ethefux_app:index"))

@@ -52,12 +52,13 @@ body.ethefux button:hover, body.ethefux .btn:hover {
 	cursor: pointer;
 }
 
+
+
 .wrap-center {
 	text-align:center;
 	width: 100%;
 }
 
-#flt {
+img.round-corner {
 	border-radius: 4px;
-	
 }
