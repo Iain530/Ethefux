@@ -5,3 +5,12 @@ nav.navbar {
 a {
 	color: black;
 }
+
+.content {
+	margin: 30px auto;
+	max-width: 1000px;
+	line-height: 1.6;
+	font-size: 18px;
+	color: #444;
+	padding: 20px 40px;
+}

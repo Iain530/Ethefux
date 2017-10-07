@@ -12,9 +12,6 @@
 
 	<!-- Bootstrap core CSS -->
 	<link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	<link href="http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-
 	<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
 	
 	<title>
@@ -28,7 +25,7 @@
 	<!-- navbar -->
 
 	
-	<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top">
+	<nav class="navbar navbar-toggleable-md navbar-inverse navbar-static-top">
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -62,7 +59,7 @@
 
 	
 	
-	<div class="container">
+	<div class="content">
 	{% block body_block %}
 	{% endblock %}
 	</div>
