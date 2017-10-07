@@ -33,5 +33,20 @@ class RegistrationForm(forms.Form):
     class Meta:
         fields = ('name', 'email', 'password')
 
-class UpdateFrom(forms.Form):
-    pass
+class UpdateForm(forms.Form):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        max_length=150, validators=[UnicodeUsernameValidator])
+
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}),
+                            max_length=150, validators=[EmailValidator])
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+                               max_length=150, min_length=10, validators=[PasswordValidator])
+
+    password_confirm = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}), max_length=150,
+        validators=[PasswordValidator], label="Confirm Password")
+
+    class Meta:
+        fields = ('name', 'email', 'password')

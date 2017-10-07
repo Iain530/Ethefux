@@ -9,10 +9,21 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+	
+
+	
 
 	<!-- Bootstrap core CSS -->
 	<link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+	<!-- Custom styles for this template -->
+	<link href="http://v4-alpha.getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+	{% block css %}
+	
+	{% endblock %}
+
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet" />
 	
 	<title>
 	Ethefux - 
@@ -21,7 +32,7 @@
 	</title>
 </head>
 
-<body>
+<body class="ethefux">
 	<!-- navbar -->
 
 	
@@ -39,11 +50,21 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'ethefux_app:index' %}">Home</a>
 				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'ethefux_app:about' %}">About us</a>
+				</li>
+				
     
 				{% if user.is_authenticated %}
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'registration:user_update' %}">Logout</a>
+						<a class="nav-link" href="{% url 'registration:user_update' %}">Update Profile</a>
 					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'ethefux_app:dashboard' %}">Dashboard</a>
+					</li>
+					
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'registration:user_logout' %}">Logout</a>
 					</li>
