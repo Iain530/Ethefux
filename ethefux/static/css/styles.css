@@ -2,15 +2,14 @@ nav.navbar {
 	background-color: #409665;
 }
 
-nav
 
 body.ethefux .navbar a.nav-link {
 	color: #030303;
-	transition: 0.2s;
+
 }
 
 body.ethefux .navbar a.nav-link:hover {
-	color: #595F72;
+	color: #f2ede6;
 	transition: 0.2s;
 }
 
