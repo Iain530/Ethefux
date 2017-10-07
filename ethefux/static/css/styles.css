@@ -1,62 +1,7 @@
-/* BASE.html css */
-ul#navbar {
-	font-family: 'Questrial', sans-serif;
-	font-size: 20px;
-	position: fixed;
-	top: 0;
-	left: -10px;
-	margin: 0;
-	width: 110%;
-	background-color: #72BDA3;
-	padding: 15px 20px 15px 10%;
+nav.navbar {
+	background-color: #94E8B4;
 }
 
-ul#navbar a {
+a {
 	color: black;
-    text-decoration: none; 
 }
-
-ul#navbar a:hover {
-	color: #1B998B;
-	transition: 0.1s;
-}
-
-ul#navbar li {
-	display: inline-block;
-}
-
-ul#navbar li#logo {
-	text-align: center;
-	vertical-align: middle;
-	margin: 0 50px 0 0;
-}
-
-ul#navbar li.link {
-	text-align: center;
-	margin: 0 10px;
-	padding: 15px 10px;
-}
-
-body {
-	position: relative;
-	top: 75px;
-	font-family: 'Roboto', sans-serif;
-	font-size: 20px;
-}
-/* -------------------------------------------- */
-
-/* GENERAL */
-h1 {
-	font-family: 'Work Sans', sans-serif;
-	font-size: 60px;
-
-}
-
-/* INDEX */
-
-.body_block {
-	width: 75%;
-	margin: 0 auto;
-}
-
-
