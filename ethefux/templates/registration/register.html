@@ -17,7 +17,7 @@
 			<strong>Thank you for registering.</strong>
 			<a href="{% url 'ethefux_app:index' %}">Return to the homepage.</a><br />
 		{% else %}
-			<form class="form-signin" method="post" action="{% url 'registration:user_register' %}">
+			<form id="register_form" class="form-signin" method="post" action="{% url 'registration:user_register' %}">
 				<h2 class="form-signin-heading">Register to Ethefux</h2>
 			
 				{% csrf_token %}
@@ -25,6 +25,7 @@
 				<input placeholder="Username" class="form-control" type="text" name="username" value="" size="50" required/>
                 <input placeholder="Email" class="form-control" type="text" name="email" value="" size="50" required/>
 				<input placeholder="Password" id="inputPassword" class="form-control" type="password" name="password" value="" size="50" required/>
+				<input placeholder="Confirm password" id="inputPassword" class="form-control" type="password" name="password_confirm" value="" size="50" required/>
                 <input placeholder="Home Address" class="form-control" type="text" name="home_address" value="" size="50" required/>
 				
 				<!-- Provide a button to click to submit the form. -->
