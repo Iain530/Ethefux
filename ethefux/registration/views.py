@@ -15,10 +15,12 @@ def user_register(request):
 
     # If we are getting a new user
     if request.method == "POST":
+        print "step 1 reached"
         user_form = RegistrationForm(request.POST)
 
         # Make sure the new user has put in all the right details
         if user_form.is_valid():
+            print "valid form"
             name = user_form.cleaned_data.get("name")
             email = user_form.cleaned_data.get("email")
             password = user_form.cleaned_data.get("password")
@@ -28,11 +30,15 @@ def user_register(request):
             registered = True
 
             if password == password_confirm:
+                print "passwords match"
                 if email is not "":
+                    print "email not blank"
                     new_user, created = User.objects.get_or_create(username=email)
+                    print type(new_user), created
 
                     # Make sure the new user isnt recreating an account that already exists
-                    if (created):
+                    if created:
+                        print "created"
                         new_user.email = email
                         new_user.set_password(password)
                         new_user.save()
@@ -48,6 +54,8 @@ def user_register(request):
                     user_form.add_error('email', 'Please enter a valid email!')
             else:
                 user_form.add_error('password_confirm', 'Passwords do not match!')
+        else:
+            print user_form.errors
 
     return render(request, "registration/register.html", {"form": user_form})
 
