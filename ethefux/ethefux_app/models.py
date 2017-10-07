@@ -37,9 +37,16 @@ class Contract(models.Model):
 
 # A proposed contract between some parties, will be deployed after all parties confirm
 class ContractProposal(models.Model):
-    partyconfirmations = models.ManyToManyField("DeployConfirmation")
-    
+   loaner = models.ForeignKey("UserProfile")
+   amount = models.DecimalField()
+
+   # Duration in months
+   duration = models.IntegerField()
+   interest_rate = models.DecimalField()
+   
 # A confirmation by a party for a contract
 class DeployConfirmation(models.Model):
-    contract = models.ForeignKey("Contract")
+    contract = models.ForeignKey("ContractProposal")
     confirmer = models.ForeignKey("UserProfile")
+    confirmed = models.BooleanField(default=False)
+
