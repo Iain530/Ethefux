@@ -48,7 +48,10 @@
 					<a class="nav-link" href="{% url 'ethefux_app:index' %}">Home</a>
 				</li>
     
-				{% if user.is_authenticated %}           
+				{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'registration:user_update' %}">Logout</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'registration:user_logout' %}">Logout</a>
 					</li>
