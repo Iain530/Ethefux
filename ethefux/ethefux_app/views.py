@@ -19,30 +19,30 @@ def user_login(request):
 	# request.POST.get('<variable>') returns None if the
 	# value does not exist, while request.POST['<variable>']
 	# will raise a KeyError exception.
-	username = request.POST.get('username')
-	password = request.POST.get('password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 	
-	# Use Django's machinery to attempt to see if the username/password
-	# combination is valid - a User object is returned if it is.
-	user = authenticate(username=username, password=password)
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+        user = authenticate(username=username, password=password)
 
-	# If we have a User object, the details are correct.
-	# If None (Python's way of representing the absence of a value), no user
-	# with matching credentials was found.
-	if user:
-	    # Is the account active? It could have been disabled.
-	    if user.is_active:
-	        # If the account is valid and active, we can log the user in.
-		# We'll send the user back to the homepage.
-		login(request, user)
-		return HttpResponseRedirect(reverse('index'))
-	    else:
-		# An inactive account was used - no logging in!
-		return HttpResponse("Your account is disabled.")
-	else:
-	# Bad login details were provided. So we can't log the user in.
-	print("Invalid login details: {0}, {1}".format(username, password))
-	return HttpResponse("Invalid login details supplied.")
+        # If we have a User object, the details are correct.
+        # If None (Python's way of representing the absence of a value), no user
+        # with matching credentials was found.
+        if user:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                # An inactive account was used - no logging in!
+                return HttpResponse("Your account is disabled.")
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
 
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
