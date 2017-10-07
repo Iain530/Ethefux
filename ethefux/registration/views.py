@@ -23,6 +23,7 @@ def user_register(request):
             email = user_form.cleaned_data.get("email")
             password = user_form.cleaned_data.get("password")
             password_confirm = user_form.cleaned_data.get("password_confirm")
+            home_address = user_form.cleaned_data.get("home_address")
             
             registered = True
 
