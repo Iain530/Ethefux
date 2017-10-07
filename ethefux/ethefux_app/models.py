@@ -8,9 +8,12 @@ web3 = Web3(IPCProvider(testnet=True))
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=100)
+    identification = models.ImageField()
+    home_address = models.CharField(max_length=300)
     wallet = models.ForeignKey("Wallet")
     credit_score = models.IntegerField(default=100)
+    verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if self.pk is None:

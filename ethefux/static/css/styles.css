@@ -2,23 +2,48 @@ nav.navbar {
 	background-color: #409665;
 }
 
-nav
+.content {
+	margin: 30px auto;
+	max-width: 1000px;
+	line-height: 1.6;
+	font-size: 18px;
+	color: #444;
+	padding: 20px 40px;
+}
+
+body.ethefux a.navbar-brand {
+	margin-left: 8.5%;
+}
 
 body.ethefux .navbar a.nav-link {
 	color: #030303;
-	transition: 0.2s;
+
 }
 
 body.ethefux .navbar a.nav-link:hover {
-	color: #595F72;
+	color: #f2f2f2;
 	transition: 0.2s;
 }
 
 .ethefux .container {
 	position: relative;
 	top: 60px;
+
 }
 
 body.ethefux {
-	background-color: #f2ede6;	
+	background-color: #ffffff;	
+}
+
+input.form-control {
+	margin: 10px 0;
+}
+
+body.ethefux #register_form {
+	position: relative;
+	bottom: 50px;
+}
+
+body.ethefux button:hover, body.ethefux .btn:hover {
+	cursor: pointer;
 }

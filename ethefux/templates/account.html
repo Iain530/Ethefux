@@ -11,10 +11,15 @@
     <br />
 
     <h3>Your Information</h3>
-    <h5>Name: </h5>
-    <h5>Email: </h5>
-    <h5>ID: </h5>
-    <h5>Address: </h5>
+    { % if user.is_authenticated %}
+        Name: {{ user.name }}!
+        Username: {{ user.username }}!
+        Email: {{ user.email }}!
+        ID: {{ user.identification }}!
+        Home address: {{ user.home_address }}!
+    {% else %}
+        You really shouldn't be able to see this lolololol
+    {% endif %}
     <br />
 
     <h3>Change Your Information</h3>

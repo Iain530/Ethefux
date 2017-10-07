@@ -33,7 +33,6 @@ class RegistrationForm(forms.Form):
     class Meta:
         fields = ('name', 'email', 'password')
 
-
 class UpdateForm(forms.Form):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
