@@ -8,7 +8,7 @@ ul#navbar {
 	margin: 0;
 	width: 110%;
 	background-color: #72BDA3;
-	padding: 5px 20px 5px 10%;
+	padding: 15px 20px 15px 10%;
 }
 
 ul#navbar a {
@@ -49,14 +49,13 @@ body {
 h1 {
 	font-family: 'Work Sans', sans-serif;
 	font-size: 60px;
-	margin: 10px 0px;
 
 }
 
 /* INDEX */
 
 .body_block {
-	width: 85%;
+	width: 75%;
 	margin: 0 auto;
 }
 
