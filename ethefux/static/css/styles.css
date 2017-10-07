@@ -19,10 +19,11 @@ body.ethefux .navbar a.nav-link:hover {
 .ethefux .container {
 	position: relative;
 	top: 60px;
+
 }
 
 body.ethefux {
-	background-color: #f2ede6;	
+	background-color: #ffffff;	
 }
 
 input.form-control {
