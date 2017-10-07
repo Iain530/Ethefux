@@ -95,6 +95,7 @@ def acceptContract(request):
                 if(accepted is not None):
                     if accepted == True:
                         # Try to deploy the contract
+                        pass
                 else:
                     # Decline the proposed contract and notify other parties
                     pass
@@ -113,7 +114,7 @@ def deployContract(request):
             confirmations = DeployConfirmation.objects.filter(contract=proposal)
             
             for confirmation in confirmations:
-                if confirmation.confirmed != True
+                if confirmation.confirmed != True:
                     # Can't deploy contract as parties are not agreed
                     return False
 
