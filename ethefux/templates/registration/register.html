@@ -21,6 +21,7 @@
 				<h2 class="form-signin-heading">Register to Ethefux</h2>
 			
 				{% csrf_token %}
+				{{ register_form.errors }}
 				<input placeholder="Name" class="form-control" type="text" name="name" value="" size="50" required autofocus/>	
 				<input placeholder="Username" class="form-control" type="text" name="username" value="" size="50" required/>
                 <input placeholder="Email" class="form-control" type="text" name="email" value="" size="50" required/>

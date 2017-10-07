@@ -34,3 +34,7 @@ body.ethefux #register_form {
 	position: relative;
 	bottom: 50px;
 }
+
+body.ethefux button:hover, body.ethefux .btn:hover {
+	cursor: pointer;
+}
