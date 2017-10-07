@@ -1,0 +1,45 @@
+pragma solidity ^0.4.17;
+
+contract CreditInterface {
+    mapping(address => uint256) rating;
+    function repay(Loan l,uint256 repayment) public constant returns (bool success) {
+
+    }
+}
+
+contract Loan {
+    address private _lender;
+    address private _debtor;
+    uint256 private _amount;
+    uint256 private _creditGain;
+    uint256 private _penalty;
+    uint256 private _durationMonths;
+
+    function Loan(address lender,address debtor,uint256 amount,uint256 creditGain,uint256 durationMonths) public {
+        _lender = lender;
+        _debtor = debtor;
+        _amount = amount;
+        _creditGain = creditGain;
+        _penalty = 0; // TODO how are we calculating penalty
+        _durationMonths = durationMonths;
+    }
+    // getters
+
+    function getPenalty() public constant returns (uint256 penalty) {
+        return penalty = _penalty;
+    }
+
+    function getAmount() public constant returns (uint256 amount){
+        return amount = _amount;
+    }
+
+    function getCreditGain() public constant returns (uint256 creditGain){
+        return creditGain = _creditGain;
+    }
+
+    //repay function
+    //how are we calculating the new score????????
+    function repay(uint256 _repayment) public constant returns (bool success){
+        
+    }
+}
