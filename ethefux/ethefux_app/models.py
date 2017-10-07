@@ -24,7 +24,7 @@ class UserProfile(models.Model):
 
             self.wallet.save()
 
-        super(PayableEntity, self).save()
+        super(UserProfile, self).save()
 
 
 class Wallet(models.Model):
