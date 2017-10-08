@@ -6,3 +6,4 @@
 .static_storage/
 .media/
 migrations/
+.eth
