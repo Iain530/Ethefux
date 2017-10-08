@@ -3,25 +3,25 @@
 <html>
 
 <head lang="en">
-	
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	
+
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 	<link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-	
 
-	
+
+
 
 	<!-- Bootstrap core CSS -->
 	<link href="http://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
 	<link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-	
+
 	<title>
-	Ethefux - 
+	Ethefux -
 	{% block title_block %}
 	{% endblock %}
 	</title>
@@ -30,31 +30,31 @@
 <body class="ethefux">
 	<!-- navbar -->
 
-	
+
 	<nav class="navbar navbar-toggleable-md navbar-inverse navbar-static-top">
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<a class="navbar-brand" href="{% url 'ethefux_app:index' %}">
-			<img src="{% static 'img/ethefux_logo.png' %}" alt="logo"/> 
+			<img src="{% static 'img/ethefux_logo.png' %}" alt="logo"/>
 		</a>
 
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-		
+
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'ethefux_app:index' %}">Home</a>
 				</li>
-    
+
 				{% if user.is_authenticated %}
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'ethefux_app:account' %}">Account</a>
 					</li>
-					
+
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'ethefux_app:dashboard' %}">Dashboard</a>
 					</li>
-					
+
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'registration:user_logout' %}">Logout</a>
 					</li>
@@ -64,20 +64,20 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'registration:user_register' %}">Register</a>
-					</li>   
+					</li>
 				{% endif %}
 			</ul>
 		</div>
 	</nav>
-	
 
-	
-	
+
+
+
 	<div class="content">
 	{% block body_block %}
 	{% endblock %}
 	</div>
-	
+
 </body>
 
 <script

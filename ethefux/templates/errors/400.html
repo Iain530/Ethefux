@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+- 400
+{% endblock %}
+
+{% block body_block %}
+  <div id="error-div"><large>400</large> <br>Bad request</div>
+  <p style="text-align: center">Your request resulted in an error.</p>
+  <form method="get" action="{% url 'ethefux_app:index' %}">
+    <button type="submit" class="btn btn-lg btn-block btn-primary">Go to Homepage</button>
+  </form>
+{% endblock %}

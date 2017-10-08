@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+- 403
+{% endblock %}
+
+{% block body_block %}
+  <div id="error-div"><large>404</large> <br>Page not found</div>
+  <p style="text-align: center">This is not the pae you're looking for.</p>
+  <form method="get" action="{% url 'ethefux_app:index' %}">
+    <button type="submit" class="btn btn-lg btn-block btn-primary">Go to Homepage</button>
+  </form>
+{% endblock %}
