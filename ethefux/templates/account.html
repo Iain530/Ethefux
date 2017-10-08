@@ -11,18 +11,17 @@
     <br />
 
     <h3>Your Information</h3>
-    { % if user.is_authenticated %}
-        Name: {{ user.name }}!
-        Username: {{ user.username }}!
-        Email: {{ user.email }}!
-        ID: {{ user.identification }}!
-        Home address: {{ user.home_address }}!
+    {% if user.is_authenticated %}
+        Name: {{ user.name }} <br>
+        Username: {{ user.username }} <br>
+        Email: {{ user.email }} <br>
+        ID: {{ user.identification }} <br>
+        Home address: {{ user.home_address }} <br>
     {% else %}
         You really shouldn't be able to see this lolololol
     {% endif %}
     <br />
-
-    <h3>Change Your Information</h3>
-    <h5>Change your password: </h5>
-    <h5>Change your address: </h5>
+	<form method="get" action="{% url 'registration:user_update' %}">
+		<button type="submit" id="i" class="btn btn-lg btn-block btn-secondary">Update your profile</button>
+	</form>
 {% endblock %}

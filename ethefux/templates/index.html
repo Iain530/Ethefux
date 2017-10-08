@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-Home
+    Home
 {% endblock %}
 
 {% block body_block %}
@@ -11,18 +11,55 @@ Home
 <div class="row">
     <div class="column">
 	<h1>What is Ethefux?</h1>
-	<p>
-		Ethefux uses Blockchain to create a secure solution to the credit score system.
-		Blockchain is publicly browsable meaning <strong>no fees</strong> to view your credit history.
+        <p>
+	    Ethefux uses inovative Blockchain technology to create a secure solution to the current credit score system.
+	    Blockchain is publicly browsable therefore there is <strong>no fees</strong> to view your full credit history.
 	</p>
-	
-	<br>
-	<div class="wrap-center">
-		<img id="flt" src="{% static 'img/funlovingteens.jpg' %}" alt=":(">
-	</div>
-</div>
-</div>
+	<br />
+            <div class="wrap-center">
+                <img class="round-corner" src="{% static 'img/funlovingteens.jpg' %}" alt=":(">
+            </div>
+	<br />
+        <h1>Why should I use Ethefux instead of the current system?</h1>
+        <p>
+            The current credit score system is flawed in many ways:
+            <ol>
+                <li>Organisations that are responsible for calculating your credit score often make mistakes.</li>
+                <li>Organisations that are responsible for the safety of your credentials do not care
+                enough to fix bugs within their software to keep your data safe, for whatever reason.</li>
+                <li>Human error in calculation is common, removing the human element to the credit system would
+                    make it much more stable and trustworthy.</li>
+            </ol>
+            Ethefux removes the need for the old credit score system and replaces it by using Blockchain
+            technology to ensure that user credentials and data are safe. Blockchain does this by making
+            the records of every transaction that has occurred avaliable to everybody using the Blockchain.
+            This means that if there is any malicious activity, or something does not add up, it can be 
+            spotted and put right very easily. This makes mass data breaches almost impossible.
+            There is also no such thing as rolling back within a Blockchain, which means that there is no
+            way to change or edit data from previous blocks. This is implemented as all the blocks are linked
+            together in a chain (hence the name Blockchain), and there are unique values for each block that
+            are also present on the block that follows on from it.
+        </p>
+        <br />
+        <h1>Why should I trust Blockchain?</h1>
+        <p>
+	    Blockchain technology uses distributed ledgers for transactions. In doing this, the risk of a single point 
+            of failure is taken away therefore Blockchain provides end-to-end privacy and encryption while still ensuring
+            convenience for all users.
+        </p>
+        <br />
+        <h1>How is my credit score calculated?</h1>
+        <p>
+            With Ethefux, your credit score is determined by the amount of contracts you have entered into and the 
+            consistency of your repayments. You will be able to keep track of your contracts and loan repayments 
+            very easily on the 'dashboard', in which you will be able to track your green loans and red loans: loans 
+            you have made the payment for this month and those you have not. You will also be able to scan your QR
+            code from a selected loan you still have to pay from your red loans, to pay your loan in full using your 
+            smartphone.
+        </p>
+	<br />
 
-		
+    </div>
+</div>
 
 {% endblock %}

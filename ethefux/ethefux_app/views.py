@@ -17,6 +17,9 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+def account(request):
+    return render(request, 'account.html')
+
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
