@@ -32,10 +32,10 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="{% url 'ethefux_app:propose_contract' %}" role="button" class="btn btn-lg pull-right">Lend</a>
+            <a href="{% url 'ethefux_app:propose_contract' %}" role="button" class="btn btn-lg btn-secondary pull-right">Lend</a>
         </div>
         <div class="col-md-6">
-            <a href="{% url 'ethefux_app:request_contract' %}" role="button" class="btn btn-lg">Borrow</a>
+            <a href="{% url 'ethefux_app:request_contract' %}" role="button" class="btn btn-lg btn-secondary">Borrow</a>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
                     <li>Duration: {{ contract.duration }} months.</li>
                     <li>Interest: {{ contract.interest_rate }}% per month.</li>
                 </ul>
-                <a type="submit" value="Accept" class="btn btn-primary pull-right">
+                <a type="submit" value="Accept" class="btn pull-right">Accept</a>
             </div>
         {% endfor %}
         {% endif %}
@@ -70,6 +70,7 @@
                         <li>Duration: {{ contract.duration }} months.</li>
                         <li>Interest: {{ contract.interest_rate}}% per month.</li>
                     </ul>
+                    <a type="submit" value="Accept" class="btn pull-right">Accept</a>
                 </div>
             {% endfor %}
 
@@ -93,7 +94,7 @@
                         <li>Duration: {{ contract.duration }} months.</li>
                         <li>Interest: {{ contract.interest}}% per month.</li>
                     </ul>
-                    <button type="button" class="btn btn-small" aria-label="Pay">
+                    <button type="button" class="btn btn-sm" aria-label="Pay">
                         <span aria-hidden="true">Pay</span>
                     </button>
                 </div>
