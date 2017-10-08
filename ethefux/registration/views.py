@@ -76,7 +76,7 @@ def user_login(request):
 @login_required
 def user_update(request):
     user = request.user
-    user_profile = request.user.UserProfile
+    user_profile = request.user.user_profile
     user_form = UpdateForm(initial={'name':user_profile.name, 'email':user.email})
 
     # If we are getting a new user
