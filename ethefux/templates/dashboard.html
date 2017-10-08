@@ -68,7 +68,7 @@
         {% if proposed_contracts.borrow %}
             <p>Borrowing</p>
             {% for contract in proposed_contracts.borrow %}
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-warning contract" role="alert">
                     <h4 class="alert-heading">{{ contract.party.user.username }}</h4>
                     <ul>
                         <li>Amount: {{ contract.amount }}</li>
@@ -76,7 +76,7 @@
                         <li>Interest: {{ contract.interest_rate}}% per month.</li>
                     </ul>
                     {% if contract.confirm %}
-                        <a type="submit" value="Accept" class="btn pull-right">Accept</a>
+                        <a id="accept-contract" type="submit" value="Accept" class="btn pull-right">Accept</a>
                     {% else %}
                         Awaiting Confirmation
                     {% endif %}
