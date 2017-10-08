@@ -23,15 +23,18 @@ class RegistrationForm(forms.Form):
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':'Email address'}),
                             max_length=150, validators=[EmailValidator], label="Email")
 
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password'}),
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password',}),
                                max_length=150, min_length=10, validators=[PasswordValidator], label="Password")
 
     password_confirm = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Confirm password'}), max_length=150,
         validators=[PasswordValidator], label="Confirm Password")
 
+    home_address = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Address', 'class':'form-control', 'rows':'5'}),
+        max_length=300)
+
     class Meta:
-        fields = ('name', 'email', 'password')
+        fields = ('name', 'email', 'home_address', 'password')
 
 class UpdateForm(forms.Form):
     name = forms.CharField(
@@ -40,6 +43,13 @@ class UpdateForm(forms.Form):
 
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':'Email address'}),
                             max_length=150, validators=[EmailValidator], label="Email")
+
+
+    home_address = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Address', 'class':'form-control', 'rows':'5'}),
+        max_length=300)
+
+    identification = forms.FileField(widget=forms.ClearableFileInput(attrs={'class':'form-control-file'}),
+                                        help_text="Identification", label="Identification")
 
     new_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'New password'}), max_length=150, min_length=10,
@@ -53,4 +63,4 @@ class UpdateForm(forms.Form):
                                max_length=150, validators=[PasswordValidator], label="Password")
 
     class Meta:
-        fields = ('name', 'email', 'password')
+        fields = ('name', 'email', 'home_address', 'identification', 'password')

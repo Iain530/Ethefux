@@ -17,8 +17,9 @@ nav.navbar {
 	padding: 20px 40px;
 }
 
-body.ethefux a.navbar-brand {
-	
+.ethefux #register-div {
+	position: relative;
+	top: 0px;
 }
 
 body.ethefux .navbar a.nav-link {

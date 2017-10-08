@@ -12,8 +12,8 @@
     {% if user.is_authenticated %}
         Name: {{ user.user_profile.name }} <br>
         Email: {{ user.email }} <br>
-        ID: {{ user.user_profile.identification }} <br>
         Home address: {{ user.user_profile.home_address }} <br>
+        ID: <a href="/media/{{ user.user_profile.identification }}">{{ user.user_profile.identification }}</a> <br>
     {% else %}
         You really shouldn't be able to see this lolololol
     {% endif %}

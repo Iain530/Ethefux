@@ -40,6 +40,7 @@ def user_register(request):
 
                         profile = new_user.user_profile
                         profile.name = name
+                        profile.home_address = home_address
                         profile.save()
 
                         return HttpResponseRedirect(reverse("registration:user_login"))
@@ -77,16 +78,18 @@ def user_login(request):
 def user_update(request):
     user = request.user
     user_profile = request.user.user_profile
-    user_form = UpdateForm(initial={'name':user_profile.name, 'email':user.email})
+    user_form = UpdateForm(initial={'name':user_profile.name, 'email':user.email, 'home_address': user_profile.home_address,
+                                    'identification': user_profile.identification})
 
     # If we are getting a new user
     if request.method == "POST":
-        user_form = UpdateForm(request.POST)
+        user_form = UpdateForm(request.POST, request.FILES)
 
         # Make sure the new user has put in all the right details
         if user_form.is_valid():
             name = user_form.cleaned_data.get("name")
             email = user_form.cleaned_data.get("email")
+            home_address = user_form.cleaned_data.get("home_address")
             password = user_form.cleaned_data.get("password")
             new_password = user_form.cleaned_data.get("new_password")
             new_password_confirm = user_form.cleaned_data.get("new_password_confirm")
@@ -102,6 +105,10 @@ def user_update(request):
                         request.user.save()
 
                         profile = UserProfile.objects.get(user=request.user)
+
+                        if 'identification' in request.FILES:
+                            profile.identification = request.FILES['identification']
+                            print "yay"
                         profile.name = name
                         profile.save()
 

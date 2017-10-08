@@ -10,7 +10,7 @@
 
 	<div class="box_center">
 
-			<form id="registration_form" method="post" action="{% url 'registration:user_update' %}">
+			<form id="registration_form" method="post" action="{% url 'registration:user_update' %}" enctype="multipart/form-data">
 			<h2 class="form-signin-heading">Update your Ethefux profile</h2>
 				{% csrf_token %}
 				{% include "helpers/form.html" with submit_value="Update"%}

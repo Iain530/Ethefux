@@ -37,14 +37,15 @@
                     {% if postfix %}
                         {{ field }} {{ field.label }}
                     {% else %}
+                        {% if field.help_text %}
+                            <span class="help">
+                                {{ field.help_text }}
+                            </span>
+                            <br>
+                        {% endif %}
                         {{ field }}
                     {% endif %}
 
-                    {% if field.help_text %}
-                        <span class="help">
-                            {{ field.help_text }}
-                        </span>
-                    {% endif %}
                 </div>
 
             {% endfor %}
@@ -55,4 +56,3 @@
         <input type="submit" class="btn btn-lg btn-block btn-primary"  value="{% if submit_value %}{{ submit_value }}{% else %}Submit{% endif %}"/>
     </form>
 {% endif %}
-
