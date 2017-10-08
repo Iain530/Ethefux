@@ -108,7 +108,6 @@ def user_update(request):
 
                         if 'identification' in request.FILES:
                             profile.identification = request.FILES['identification']
-                            print "yay"
                         profile.name = name
                         profile.save()
 
