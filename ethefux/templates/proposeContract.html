@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Propose Contract
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+
+        <h2 class="form-heading">Propose Contract</h2>
+        <h4>Propose a contract between yourself and a borrower.</h4>
+        {% include "helpers/form.html" with submit_value="Propose" %}
+        
+    </div>
+
+
+{% endblock %}

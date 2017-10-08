@@ -8,26 +8,99 @@
 
 {% block body_block %}
     <h1>Dashboard</h1>
-    <br />
 
-    <h3>Credit Score</h3>
-    <h5>Your credit score:</h5>
-    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Credit Score</h3>
+                    <p>{{ credit_score }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Total Contracts</h3>
+                    <p>{{ total_contracts }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h3>Current Contracts</h3>
-    <h5>Your current contracts:</h5>
-    <h5><i>These are contracts you are currently in</i></h5>
-    <br />
-    <h3>Total Contracts</h3>
-    <h5>Your total contracts:</h5>
-    <h5><i>This how many contracts you have entered in total</i></h5>
-    <br />
+    {% if proposed_contracts %}
+    <div class="row">
+        <h3>Proposed Contracts</h3>
+        <h5>Contracts that you have proposed, and those that have been proposed to you.</h5>
+        {% for contract in proposed_contracts %}
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">{{ contract.party }}</h4>
+                <ul>
+                    <li>Amount: {{ contract.amount }}</li>
+                    <li>Duration: {{ contract.duration }} months.</li>
+                    <li>Interest: {{ contract.interest}}% per month.</li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-    <h3>Red loans</h3>
-    <h5><i>These are loans that you have not yet paid this month</i></h5>
-    <br />
-    <h3>Green loans</h3>
-    <h5><i>These are loans that you already paid this month</i></h5>
-    <br />
+    {% if current_loans %}
+    <div class="row">
+        <h3>Current Loans</h3>
+        <h5>Loans you have taken out.</h5>
 
+        {% if current_loans.red %}
+            <h3>Red loans</h3>
+            <h5><i>These are loans that you have not yet paid this month</i></h5>
+            {% for contract in current_loans.red %}
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">{{ contract.party }}</h4>
+                    <p>Amount due this month: {{ contract.due }}</p>
+                    <ul>
+                        <li>Amount: {{ contract.amount }}</li>
+                        <li>Duration: {{ contract.duration }} months.</li>
+                        <li>Interest: {{ contract.interest}}% per month.</li>
+                    </ul>
+                    <button type="button" class="btn btn-small" aria-label="Pay">
+                        <span aria-hidden="true">Pay</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if current_loans.green %}
+            <h3>Green loans</h3>
+            <h5><i>These are loans that you already paid this month</i></h5>
+
+            {% for contract in current_loans.green %}
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">{{ contract.party }}</h4>
+                    <ul>
+                        <li>Amount: {{ contract.amount }}</li>
+                        <li>Duration: {{ contract.duration }} months.</li>
+                        <li>Interest: {{ contract.interest}}% per month.</li>
+                    </ul>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if current_lends %}
+    <div class="row">
+        <h3>Current Lends</h3>
+        <h5>Loans you are currently lending to borrowers</h5>
+        {% for contract in current_lends %}
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">{{ contract.party }}</h4>
+                <ul>
+                    <li>Amount: {{ contract.amount }}</li>
+                    <li>Duration: {{ contract.duration }} months.</li>
+                    <li>Interest: {{ contract.interest}}% per month.</li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}

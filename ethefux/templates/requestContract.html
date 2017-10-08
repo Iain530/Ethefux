@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Request Contract
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+
+        <h2 class="form-heading">Request Contract</h2>
+        <h4>Request a contract between yourself and a lender.</h4>
+        {% include "helpers/form.html" with submit_value="Request" %}
+        
+    </div>
+
+
+{% endblock %}
