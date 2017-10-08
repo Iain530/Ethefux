@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from ethefux_app.forms import LoanForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
+from web3 import Web3, HTTPProvider
+
+web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 def index(request):
     context_dict = {}
@@ -106,7 +109,7 @@ def acceptContract(request):
     return render(request, "ethefux_app/accept_contract.html", context_dict)
     
 
-# Deploy 
+# Deploy
 @login_required
 def deployContract(request):
     if request.method == "POST":
@@ -122,6 +125,8 @@ def deployContract(request):
                     return False
 
             # Deploy Contract
+            contract = web3.eth.Contract(abi)
+            contract.deploy({'from': proposal.lender.wallet.address}, [proposal.lender.wallet.address, proposal])
             return True
     return False
 
