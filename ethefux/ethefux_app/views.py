@@ -35,12 +35,12 @@ def propose_contract(request):
         loanForm = LoanForm(request.POST)
 
         if loanForm.is_valid():
-
-            party = User.objects.get(username = loanForm.party)
+            data = loanForm.cleaned_data
+            party = User.objects.get(username = data["party"])
 
             if(party):      
-                loanProposal = ContractProposal.objects.create(loaner=request.user.userprofile, amount=loanForm.amount, 
-                                                               duration=loanForm.duration, interest_rate=loanForm.interest_rate)
+                loanProposal = ContractProposal.objects.create(loaner=request.user.userprofile, amount=data["amount"], 
+                                                               duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 
                 #Ask other party for confirmation
@@ -60,12 +60,12 @@ def request_contract(request):
         loanForm = LoanForm(request.POST)
 
         if loanForm.is_valid():
-
-            party = User.objects.get(username = loanForm.party)
+            data = loanForm.cleaned_data
+            party = User.objects.get(username = data["party"])
 
             if(party):      
-                loanProposal = ContractProposal.objects.create(loaner=party.userprofile, amount=loanForm.amount, 
-                                                               duration=loanForm.duration, interest_rate=loanForm.interest_rate)
+                loanProposal = ContractProposal.objects.create(loaner=party.userprofile, amount=data["amount"], 
+                                                               duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 
                 #Ask other party for confirmation
