@@ -1,11 +1,12 @@
 $(document).ready( function () {
 
 	$(".accept-contract").on("click", function() {
-		alert("click");
-		var div = ".contract > "+ $(this);
-		$(div).css("color", "#90ff68");
 		$(this).hide();
-		$(div).html += "Accepted";
+		$(this).parent().css("background-color", "#93d666");
+		$(this).parent().css("color", "#242423");
+
+
+		$(this).parent().append("Accepted") ;
 
 	});
 

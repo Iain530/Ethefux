@@ -68,3 +68,7 @@ body.ethefux div#error-div {
 	text-align: center;
 	width: 100%;
 }
+
+.ethefux .contract {
+	transition: 0.5s;
+}
