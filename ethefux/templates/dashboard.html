@@ -32,7 +32,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="{% url 'ethefux_app:propose_contract' %}" role="button" class="btn btn-lg">Lend</a>
+            <a href="{% url 'ethefux_app:propose_contract' %}" role="button" class="btn btn-lg pull-right">Lend</a>
         </div>
         <div class="col-md-6">
             <a href="{% url 'ethefux_app:request_contract' %}" role="button" class="btn btn-lg">Borrow</a>
@@ -48,12 +48,14 @@
         <p>Lending</p>
         {% for contract in proposed_contracts.lend %}
             <div class="alert alert-warning" role="alert">
+
                 <h4 class="alert-heading">{{ contract.party.user.username }}</h4>
                 <ul>
                     <li>Amount: {{ contract.amount }}</li>
                     <li>Duration: {{ contract.duration }} months.</li>
                     <li>Interest: {{ contract.interest_rate }}% per month.</li>
                 </ul>
+                <a type="submit" value="Accept" class="btn btn-primary pull-right">
             </div>
         {% endfor %}
         {% endif %}

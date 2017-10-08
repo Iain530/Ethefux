@@ -38,7 +38,7 @@ def dashboard(request):
 
     context_dict["proposed_contracts"] = {"lend":prop_lend, "borrow":prop_borrow}
 
-    loan_data =  Contract.objects.filter(borrower=request.user.user_profile)
+    loan_data =  list(Contract.objects.filter(borrower=request.user.user_profile))
     loans = None
 
     if len(loan_data) > 0:
@@ -55,7 +55,7 @@ def dashboard(request):
                 loans.green.append(loan)
 
 
-    lends =  Contract.objects.filter(lender=request.user.user_profile)
+    lends =  list(Contract.objects.filter(lender=request.user.user_profile))
 
     context_dict["current_loans"] = loans
     context_dict["current_lends"] = lends
@@ -83,6 +83,7 @@ def propose_contract(request):
 
                 #Ask other party for confirmation
                 DeployConfirmation.objects.create(contract=loanProposal, confirmer=party.user_profile)
+                return HttpResponseRedirect(reverse("ethefux_app:dashboard"))
 
     context_dict["form"] = loanForm
     return render(request, "ethefux_app/propose_contract.html", context_dict)
@@ -108,7 +109,7 @@ def request_contract(request):
 
                 #Ask other party for confirmation
                 DeployConfirmation.objects.create(contract=loanProposal, confirmer=party.user_profile)
-
+                return HttpResponseRedirect(reverse("ethefux_app:dashboard"))
     context_dict["form"] = loanForm
     return render(request, "ethefux_app/request_contract.html", context_dict)
 
@@ -116,7 +117,6 @@ def request_contract(request):
 @login_required
 def accept_contract(request):
     context_dict = {}
-
     if request.method == "POST":
         contractid = request.POST.get("contract_id")
         proposal = ContractProposal.objects.get(id=contractid)
@@ -140,12 +140,13 @@ def accept_contract(request):
                 if(accepted is not None):
                     if accepted == True:
                         # Try to deploy the contract
-                        deploy_contract(request)
+                        return deploy_contract(request)
                 else:
                     # Decline the proposed contract and notify other parties
                     proposal.delete()
+                    return False
 
-    return render(request, "ethefux_app/accept_contract.html", context_dict)
+    return False
 
 
 # Deploy
@@ -172,7 +173,6 @@ def deploy_contract(request):
                                     duration=proposal.duration, interest_rate=proposal.interest_rate, address=contract.address)
             return True
     return False
-
 
 # ERROR PAGS
 def handler400(request):
