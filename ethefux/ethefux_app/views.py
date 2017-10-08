@@ -22,11 +22,12 @@ def account(request):
 
 @login_required
 def dashboard(request):
+    
     return render(request, 'dashboard.html')
 
 # Propose a contract to a debtor
 @login_required
-def proposeContract(request):
+def propose_contract(request):
     context_dict = {}
     loanForm = LoanForm()
 
@@ -51,7 +52,7 @@ def proposeContract(request):
 
 # Request a loan from a loaner
 @login_required
-def requestContract(request):
+def request_contract(request):
     context_dict = {}
     loanForm = LoanForm()
 
@@ -75,7 +76,7 @@ def requestContract(request):
 
 # Show a potential contract to a user and allow them to accept/decline it
 @login_required
-def acceptContract(request):
+def accept_contract(request):
     context_dict = {}
 
     if request.method == "POST":
@@ -104,7 +105,7 @@ def acceptContract(request):
                 if(accepted is not None):
                     if accepted == True:
                         # Try to deploy the contract
-                        deployContract(request)
+                        deploy_contract(request)
                 else:
                     # Decline the proposed contract and notify other parties
                     pass
@@ -114,7 +115,7 @@ def acceptContract(request):
 
 # Deploy
 @login_required
-def deployContract(request):
+def deploy_contract(request):
     if request.method == "POST":
         contractid = request.POST.get("contract_id")
         proposal = ContractProposal.objects.get(id=contractid)
