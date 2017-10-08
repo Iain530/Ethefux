@@ -3,6 +3,7 @@ from django.db import models
 from web3 import Web3, HTTPProvider
 from django.db import models
 from ethefux.settings import ENABLE_ETH
+from django.db.models.signals import post_save
 
 web3 = Web3(HTTPProvider('http://localhost:8545'))
 
