@@ -41,12 +41,16 @@ class UpdateForm(forms.Form):
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':'Email address'}),
                             max_length=150, validators=[EmailValidator], label="Email")
 
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Password'}),
-                               max_length=150, min_length=10, validators=[PasswordValidator], label="Password")
+    new_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'New password'}), max_length=150, min_length=10,
+        validators=[PasswordValidator], label="New Password", required=False)
 
-    password_confirm = forms.CharField(
+    new_password_confirm = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Confirm password'}), max_length=150,
-        validators=[PasswordValidator], label="Confirm Password")
+        validators=[PasswordValidator], label="Confirm Password", required=False)
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'Current password'}),
+                               max_length=150, validators=[PasswordValidator], label="Password")
 
     class Meta:
         fields = ('name', 'email', 'password')
