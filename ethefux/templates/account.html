@@ -10,10 +10,12 @@
     <h1>Your Account Information</h1>
     <br />
     {% if user.is_authenticated %}
-        Name: {{ user.user_profile.name }} <br>
-        Email: {{ user.email }} <br>
-        Home address: {{ user.user_profile.home_address }} <br>
-        ID: <a href="/media/{{ user.user_profile.identification }}">{{ user.user_profile.identification }}</a> <br>
+        <strong>Name:</strong> {{ user.user_profile.name }} <br>
+        <strong>Email:</strong> {{ user.email }} <br>
+        <strong>Home address:</strong> {{ user.user_profile.home_address }} <br>
+        {% if user.user_profile.identification %}
+        <strong>ID:</strong> <a href="/media/{{ user.user_profile.identification }}">{{ user.user_profile.identification }}</a> <br>
+        {% endif %}
     {% else %}
         You really shouldn't be able to see this lolololol
     {% endif %}
