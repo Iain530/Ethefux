@@ -7,7 +7,7 @@ from ethefux.settings import ENABLE_ETH
 web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='UserProfile')
     name = models.CharField(max_length=100)
     identification = models.ImageField(blank=True, null=True)
     home_address = models.CharField(max_length=300)
