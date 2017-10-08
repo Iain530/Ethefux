@@ -10,8 +10,8 @@ web3 = Web3(HTTPProvider('http://localhost:8545'))
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
     name = models.CharField(max_length=100)
-    identification = models.ImageField(blank=True, null=True)
-    home_address = models.CharField(max_length=300)
+    identification = models.ImageField(upload_to='IDs/', blank=True)
+    home_address = models.TextField(max_length=300)
     wallet = models.ForeignKey("Wallet")
     credit_score = models.IntegerField(default=100)
     verified = models.BooleanField(default=False)
@@ -52,7 +52,7 @@ class ContractProposal(models.Model):
    # Duration in months
    duration = models.IntegerField()
    interest_rate = models.DecimalField(decimal_places=5,max_digits=20)
-   
+
 # A confirmation by a party for a contract
 class DeployConfirmation(models.Model):
     contract = models.ForeignKey("ContractProposal")

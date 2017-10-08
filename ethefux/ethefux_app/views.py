@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from web3 import Web3, HTTPProvider
@@ -40,7 +41,7 @@ def dashboard(request):
     loan_data =  list(Contract.objects.filter(borrower=request.user.user_profile))
     loans = None
 
-    if len(loan_data) > 0: 
+    if len(loan_data) > 0:
         loans = {
             "red":[],
             "green":[]
@@ -52,7 +53,7 @@ def dashboard(request):
                 loans.red.append(loan)
             else:
                 loans.green.append(loan)
-        
+
 
     lends =  list(Contract.objects.filter(lender=request.user.user_profile))
 
@@ -75,8 +76,8 @@ def propose_contract(request):
             data = loanForm.cleaned_data
             party = User.objects.get(username = data["party"])
 
-            if(party):      
-                loanProposal = ContractProposal.objects.create(lender=request.user.user_profile, borrower=party.user_profile,amount=data["amount"], 
+            if(party):
+                loanProposal = ContractProposal.objects.create(lender=request.user.user_profile, borrower=party.user_profile,amount=data["amount"],
                                                                duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 
@@ -101,8 +102,8 @@ def request_contract(request):
             data = loanForm.cleaned_data
             party = User.objects.get(username = data["party"])
 
-            if(party):      
-                loanProposal = ContractProposal.objects.create(lender=party.user_profile, borrower=party.user_profile,amount=data["amount"], 
+            if(party):
+                loanProposal = ContractProposal.objects.create(lender=party.user_profile, borrower=party.user_profile,amount=data["amount"],
                                                                duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 
@@ -119,7 +120,7 @@ def accept_contract(request):
     if request.method == "POST":
         contractid = request.POST.get("contract_id")
         proposal = ContractProposal.objects.get(id=contractid)
-        
+
         if(proposal is not None):
             # Check if user is part of the contract
             present = False
@@ -132,10 +133,10 @@ def accept_contract(request):
                     break
 
             if(present==True):
-                
+
                 # Check if user has accepted or declined
                 accepted = request.POST.get("accepted")
-                
+
                 if(accepted is not None):
                     if accepted == True:
                         # Try to deploy the contract
@@ -157,7 +158,7 @@ def deploy_contract(request):
 
         if(proposal):
             confirmations = DeployConfirmation.objects.filter(contract=proposal)
-            
+
             for confirmation in confirmations:
                 if confirmation.confirmed != True:
                     # Can't deploy contract as parties are not agreed
@@ -168,8 +169,32 @@ def deploy_contract(request):
             contract.deploy({'from': proposal.lender.wallet.address}, [proposal.lender.wallet.address, proposal.borrower.wallet.address,
                                                                        proposal.amount, proposal.duration, proposal.interest_rate])
 
-            Contract.objects.create(lender=proposal.lender, borrower=proposal.borrower, amount=proposal.amount, 
+            Contract.objects.create(lender=proposal.lender, borrower=proposal.borrower, amount=proposal.amount,
                                     duration=proposal.duration, interest_rate=proposal.interest_rate, address=contract.address)
             return True
     return False
 
+# ERROR PAGS
+def handler400(request):
+    response = render_to_response('errors/400.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 400
+    return response
+
+def handler404(request):
+    response = render_to_response('errors/403.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 403
+    return response
+
+def handler404(request):
+    response = render_to_response('errors/404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+def handler500(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
