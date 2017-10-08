@@ -30,7 +30,7 @@ def dashboard(request):
     profile = request.user.user_profile
     context_dict["credit_score"] = 100
 
-    confirmations = list(DeployConfirmations.objects.filter(confirmer=request.user.user_profile))
+    confirmations = list(DeployConfirmation.objects.filter(confirmer=request.user.user_profile))
     
     prop_lend = list(ContractProposal.objects.filter(lender=request.user.user_profile))
     for x in prop_lend: 
@@ -40,7 +40,7 @@ def dashboard(request):
 
     prop_borrow = list(ContractProposal.objects.filter(borrower=request.user.user_profile))
     for x in prop_borrow: 
-        x.party = x.borrower
+        x.party = x.lender
         if x in map(lambda x: x.contract, confirmations):
             x.confirm=True
 
@@ -83,7 +83,11 @@ def propose_contract(request):
 
         if loanForm.is_valid():
             data = loanForm.cleaned_data
-            party = User.objects.get(username = data["party"])
+            try:
+                party = User.objects.get(username = data["party"])
+            except:
+                party = None
+                loanForm.add_error("party", "User does not exist!")
 
             if(party):
                 loanProposal = ContractProposal.objects.create(lender=request.user.user_profile, borrower=party.user_profile,amount=data["amount"],
@@ -98,7 +102,7 @@ def propose_contract(request):
     return render(request, "ethefux_app/propose_contract.html", context_dict)
 
 
-# Request a loan from a loaner
+# Request a loan from a loaner#
 @login_required
 def request_contract(request):
     context_dict = {}
@@ -109,10 +113,15 @@ def request_contract(request):
 
         if loanForm.is_valid():
             data = loanForm.cleaned_data
-            party = User.objects.get(username = data["party"])
+
+            try:
+                party = User.objects.get(username = data["party"])
+            except:
+                party = None
+                loanForm.add_error("party", "User does not exist!")
 
             if(party):
-                loanProposal = ContractProposal.objects.create(lender=party.user_profile, borrower=party.user_profile,amount=data["amount"],
+                loanProposal = ContractProposal.objects.create(lender=party.user_profile, borrower=request.user.user_profile,amount=data["amount"],
                                                                duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 

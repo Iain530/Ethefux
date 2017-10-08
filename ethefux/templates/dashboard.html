@@ -55,7 +55,12 @@
                     <li>Duration: {{ contract.duration }} months.</li>
                     <li>Interest: {{ contract.interest_rate }}% per month.</li>
                 </ul>
-                <a type="submit" value="Accept" class="btn pull-right">Accept</a>
+
+                {% if contract.confirm %}
+                    <a type="submit" value="Accept" class="btn pull-right">Accept</a>
+                {% else %}
+                    Awaiting Confirmation
+                {% endif %}
             </div>
         {% endfor %}
         {% endif %}
@@ -70,7 +75,11 @@
                         <li>Duration: {{ contract.duration }} months.</li>
                         <li>Interest: {{ contract.interest_rate}}% per month.</li>
                     </ul>
-                    <a type="submit" value="Accept" class="btn pull-right">Accept</a>
+                    {% if contract.confirm %}
+                        <a type="submit" value="Accept" class="btn pull-right">Accept</a>
+                    {% else %}
+                        Awaiting Confirmation
+                    {% endif %}
                 </div>
             {% endfor %}
 
