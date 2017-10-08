@@ -36,12 +36,17 @@ class Wallet(models.Model):
 
 # A deployed contract
 class Contract(models.Model):
+    lender = models.ForeignKey("UserProfile")
+    borrower = models.ForeignKey("UserProfile")
+    amount = models.DecimalField(decimal_places=4, max_digits=100)
+    duration = models.IntegerField()
+    interest_rate = models.DecimalField(decimal_places=5, max_digits=20)
     address = models.CharField(max_length=42)
-    parties = models.ManyToManyField("UserProfile")
 
 # A proposed contract between some parties, will be deployed after all parties confirm
 class ContractProposal(models.Model):
-   loaner = models.ForeignKey("UserProfile")
+   lender = models.ForeignKey("UserProfile")
+   borrower = models.ForeignKey("UserProfile")
    amount = models.DecimalField(decimal_places=4,max_digits=100)
 
    # Duration in months

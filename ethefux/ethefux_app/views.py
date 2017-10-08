@@ -2,11 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from ethefux_app.forms import LoanForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from web3 import Web3, HTTPProvider
-
+from ethefux_app.models import ContractProposal,DeployConfirmation,Contract
+from ethefux_app.forms import LoanForm
 web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 def index(request):
@@ -22,8 +22,25 @@ def account(request):
 
 @login_required
 def dashboard(request):
+    context_dict = {}
+    profile = request.user.user_profile
+    context_dict["credit_score"] = 100
+    context_dict["proposed_contracts"] = ContractProposal.objects.filter(lender=request.user.user_profile) + \
+                                            ContractProposal.objects.filter(borrower=request.user.user_profile)
+
+    loan_data =  Contract.objects.filter(borrower=request.user.user_profile)
     
-    return render(request, 'dashboard.html')
+    loans = []
+    for loan in loan_data
+        
+
+    lends =  Contract.obejcts.filter(lender=request.user.user_profile)
+
+    context_dict["current_loans"] = loans
+    context_dict["current_lends"] = lends
+
+    context_dict["total_contracts"] = len(loan_data) + len(lends)
+    return render(request, 'dashboard.html', context_dict)
 
 # Propose a contract to a debtor
 @login_required
@@ -39,12 +56,12 @@ def propose_contract(request):
             party = User.objects.get(username = data["party"])
 
             if(party):      
-                loanProposal = ContractProposal.objects.create(loaner=request.user.userprofile, amount=data["amount"], 
+                loanProposal = ContractProposal.objects.create(lender=request.user.user_profile, borrower=party.user_profile,amount=data["amount"], 
                                                                duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 
                 #Ask other party for confirmation
-                DeployConfirmation.objects.create(contract=loanProposal, confirmer=party.userprofile)
+                DeployConfirmation.objects.create(contract=loanProposal, confirmer=party.user_profile)
 
     context_dict["form"] = loanForm
     return render(request, "ethefux_app/propose_contract.html", context_dict)
@@ -64,12 +81,12 @@ def request_contract(request):
             party = User.objects.get(username = data["party"])
 
             if(party):      
-                loanProposal = ContractProposal.objects.create(loaner=party.userprofile, amount=data["amount"], 
+                loanProposal = ContractProposal.objects.create(lender=party.user_profile, borrower=party.user_profile,amount=data["amount"], 
                                                                duration=data["duration"], interest_rate=data["interest_rate"])
                 loanProposal.save()
 
                 #Ask other party for confirmation
-                DeployConfirmation.objects.create(contract=loanProposal, confirmer=party.userprofile)
+                DeployConfirmation.objects.create(contract=loanProposal, confirmer=party.user_profile)
 
     context_dict["form"] = loanForm
     return render(request, "ethefux_app/request_contract.html", context_dict)
@@ -87,15 +104,12 @@ def accept_contract(request):
             # Check if user is part of the contract
             present = False
 
-            if proposal.loaner != request.user.userprofile:
-                parties = DeployConfirmations.objects.filter(contract=proposal)
+            parties = DeployConfirmations.objects.filter(contract=proposal)
 
-                for party in parties:
-                    if party.confirmer == request.user.userprofile:
-                        present = True
-                        break
-            else:
-                present = True
+            for party in parties:
+                if party.confirmer == request.user.user_profile:
+                    present = True
+                    break
 
             if(present==True):
                 
@@ -108,7 +122,7 @@ def accept_contract(request):
                         deploy_contract(request)
                 else:
                     # Decline the proposed contract and notify other parties
-                    pass
+                    proposal.delete()
 
     return render(request, "ethefux_app/accept_contract.html", context_dict)
     
@@ -130,7 +144,10 @@ def deploy_contract(request):
 
             # Deploy Contract
             contract = web3.eth.Contract(abi)
-            contract.deploy({'from': proposal.lender.wallet.address}, [proposal.lender.wallet.address, proposal])
+            contract.deploy({'from': proposal.lender.wallet.address}, [proposal.lender.wallet.address, proposal.borrower.wallet.address,
+                                                                       proposal.amount, proposal.duration, proposal.interest_rate])
+
+            Contract.objects.create(lender=proposal.lender, borrower=address=contract.address)
             return True
     return False
 
