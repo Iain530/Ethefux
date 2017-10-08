@@ -7,6 +7,9 @@ from django.core.urlresolvers import reverse
 from web3 import Web3, HTTPProvider
 from ethefux_app.models import ContractProposal,DeployConfirmation,Contract
 from ethefux_app.forms import LoanForm
+import random
+
+
 web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 def index(request):
@@ -25,16 +28,33 @@ def dashboard(request):
     context_dict = {}
     profile = request.user.user_profile
     context_dict["credit_score"] = 100
-    context_dict["proposed_contracts"] = ContractProposal.objects.filter(lender=request.user.user_profile) + \
-                                            ContractProposal.objects.filter(borrower=request.user.user_profile)
+
+    prop_lend = list(ContractProposal.objects.filter(lender=request.user.user_profile))
+    for x in prop_lend: x.party = x.borrower
+
+    prop_borrow = list(ContractProposal.objects.filter(borrower=request.user.user_profile))
+    for x in prop_borrow: x.party = x.borrower
+
+    context_dict["proposed_contracts"] = {"lend":prop_lend, "borrow":prop_borrow}
 
     loan_data =  Contract.objects.filter(borrower=request.user.user_profile)
-    
-    loans = []
-    for loan in loan_data
+    loans = None
+
+    if len(loan_data) > 0: 
+        loans = {
+            "red":[],
+            "green":[]
+        }
+        for loan in loan_data:
+            loan.due = (loan.amount * loan.interest_rate)/ loan.duration
+
+            if random.randint(0,1)==0:
+                loans.red.append(loan)
+            else:
+                loans.green.append(loan)
         
 
-    lends =  Contract.obejcts.filter(lender=request.user.user_profile)
+    lends =  Contract.objects.filter(lender=request.user.user_profile)
 
     context_dict["current_loans"] = loans
     context_dict["current_lends"] = lends
@@ -147,7 +167,8 @@ def deploy_contract(request):
             contract.deploy({'from': proposal.lender.wallet.address}, [proposal.lender.wallet.address, proposal.borrower.wallet.address,
                                                                        proposal.amount, proposal.duration, proposal.interest_rate])
 
-            Contract.objects.create(lender=proposal.lender, borrower=address=contract.address)
+            Contract.objects.create(lender=proposal.lender, borrower=proposal.borrower, amount=proposal.amount, 
+                                    duration=proposal.duration, interest_rate=proposal.interest_rate, address=contract.address)
             return True
     return False
 

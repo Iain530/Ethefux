@@ -28,6 +28,8 @@
         </div>
     </div>
 
+    <br/>
+
     <div class="row">
         <div class="col-md-6">
             <a href="{% url 'ethefux_app:propose_contract' %}" role="button" class="btn btn-lg">Lend</a>
@@ -37,34 +39,52 @@
         </div>
     </div>
 
+    <br/>
+
     {% if proposed_contracts %}
-    <div class="row">
         <h3>Proposed Contracts</h3>
         <h5>Contracts that you have proposed, and those that have been proposed to you.</h5>
-        {% for contract in proposed_contracts %}
+        {% if proposed_contracts.lend %}
+        <p>Lending</p>
+        {% for contract in proposed_contracts.lend %}
             <div class="alert alert-warning" role="alert">
-                <h4 class="alert-heading">{{ contract.party }}</h4>
+                <h4 class="alert-heading">{{ contract.party.user.username }}</h4>
                 <ul>
                     <li>Amount: {{ contract.amount }}</li>
                     <li>Duration: {{ contract.duration }} months.</li>
-                    <li>Interest: {{ contract.interest}}% per month.</li>
+                    <li>Interest: {{ contract.interest_rate }}% per month.</li>
                 </ul>
             </div>
         {% endfor %}
-    </div>
+        {% endif %}
+
+        {% if proposed_contracts.borrow %}
+            <p>Borrowing</p>
+            {% for contract in proposed_contracts.borrow %}
+                <div class="alert alert-warning" role="alert">
+                    <h4 class="alert-heading">{{ contract.party.user.username }}</h4>
+                    <ul>
+                        <li>Amount: {{ contract.amount }}</li>
+                        <li>Duration: {{ contract.duration }} months.</li>
+                        <li>Interest: {{ contract.interest_rate}}% per month.</li>
+                    </ul>
+                </div>
+            {% endfor %}
+
+        {% endif %}
     {% endif %}
 
     {% if current_loans %}
-    <div class="row">
+    <div>
         <h3>Current Loans</h3>
-        <h5>Loans you have taken out.</h5>
+        <p>Loans you have taken out.</p>
 
         {% if current_loans.red %}
             <h3>Red loans</h3>
             <h5><i>These are loans that you have not yet paid this month</i></h5>
             {% for contract in current_loans.red %}
                 <div class="alert alert-danger" role="alert">
-                    <h4 class="alert-heading">{{ contract.party }}</h4>
+                    <h4 class="alert-heading">{{ contract.lender }}</h4>
                     <p>Amount due this month: {{ contract.due }}</p>
                     <ul>
                         <li>Amount: {{ contract.amount }}</li>
@@ -84,7 +104,7 @@
 
             {% for contract in current_loans.green %}
                 <div class="alert alert-success" role="alert">
-                    <h4 class="alert-heading">{{ contract.party }}</h4>
+                    <h4 class="alert-heading">{{ contract.lender }}</h4>
                     <ul>
                         <li>Amount: {{ contract.amount }}</li>
                         <li>Duration: {{ contract.duration }} months.</li>
@@ -102,7 +122,7 @@
         <h5>Loans you are currently lending to borrowers</h5>
         {% for contract in current_lends %}
             <div class="alert alert-info" role="alert">
-                <h4 class="alert-heading">{{ contract.party }}</h4>
+                <h4 class="alert-heading">{{ contract.borrower }}</h4>
                 <ul>
                     <li>Amount: {{ contract.amount }}</li>
                     <li>Duration: {{ contract.duration }} months.</li>
