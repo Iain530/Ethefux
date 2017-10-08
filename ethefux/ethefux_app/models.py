@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 web3 = Web3(HTTPProvider('http://localhost:8545'))
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='UserProfile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
     name = models.CharField(max_length=100)
     identification = models.ImageField(blank=True, null=True)
     home_address = models.CharField(max_length=300)
@@ -53,3 +53,9 @@ class DeployConfirmation(models.Model):
     contract = models.ForeignKey("ContractProposal")
     confirmer = models.ForeignKey("UserProfile")
     confirmed = models.BooleanField(default=False)
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)

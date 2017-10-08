@@ -38,7 +38,7 @@ def user_register(request):
                         new_user.set_password(password)
                         new_user.save()
 
-                        profile = UserProfile.objects.create(user=new_user)
+                        profile = new_user.user_profile
                         profile.name = name
                         profile.save()
 
