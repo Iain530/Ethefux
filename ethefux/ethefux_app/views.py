@@ -30,11 +30,20 @@ def dashboard(request):
     profile = request.user.user_profile
     context_dict["credit_score"] = 100
 
+    confirmations = list(DeployConfirmations.objects.filter(confirmer=request.user.user_profile))
+    
     prop_lend = list(ContractProposal.objects.filter(lender=request.user.user_profile))
-    for x in prop_lend: x.party = x.borrower
+    for x in prop_lend: 
+        x.party = x.borrower
+        if x in map(lambda x: x.contract, confirmations):
+            x.confirm=True
 
     prop_borrow = list(ContractProposal.objects.filter(borrower=request.user.user_profile))
-    for x in prop_borrow: x.party = x.borrower
+    for x in prop_borrow: 
+        x.party = x.borrower
+        if x in map(lambda x: x.contract, confirmations):
+            x.confirm=True
+
 
     context_dict["proposed_contracts"] = {"lend":prop_lend, "borrow":prop_borrow}
 
