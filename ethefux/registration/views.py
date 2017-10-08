@@ -75,7 +75,9 @@ def user_login(request):
 
 @login_required
 def user_update(request):
-    user_form = UpdateForm()
+    user = request.user
+    user_profile = request.user.user_profile
+    user_form = UpdateForm(initial={'name':user_profile.name, 'email':user.email})
 
     # If we are getting a new user
     if request.method == "POST":
@@ -86,29 +88,32 @@ def user_update(request):
             name = user_form.cleaned_data.get("name")
             email = user_form.cleaned_data.get("email")
             password = user_form.cleaned_data.get("password")
-            password_confirm = user_form.cleaned_data.get("password_confirm")
+            new_password = user_form.cleaned_data.get("new_password")
+            new_password_confirm = user_form.cleaned_data.get("new_password_confirm")
 
-            if password == password_confirm:
-                if email is not "":
-                    new_user, created = User.objects.get_or_create(username=email)
+            if email is not "":
+                if new_password == new_password_confirm:
+                    if authenticate(username=request.user.email, password=user_form.cleaned_data.get("password")):
 
+                        request.user.email = email
+                        request.user.username = email
+                        if new_password:
+                            request.user.set_password(new_password)
+                        request.user.save()
 
+                        profile = UserProfile.objects.get(user=request.user)
+                        profile.name = name
+                        profile.save()
 
-                    request.user.email = email
-                    request.user.set_password(password)
-                    request.user.save()
+                        login(request, request.user)
 
-                    profile = UserProfile.objects.get(user=request.user)
-
-                    profile.name = name
-                    profile.save()
-
-                    return HttpResponseRedirect(reverse("ethefux_app:account"))
+                        return HttpResponseRedirect(reverse("ethefux_app:account"))
+                    else:
+                        user_form.add_error('password', 'Incorrect password!')
                 else:
-                    user_form.add_error('email', 'Please enter a valid email!')
+                    user_form.add_error('new_password', 'Passwords do not match!')
             else:
-                user_form.add_error('password_confirm', 'Passwords do not match!')
-
+                user_form.add_error('email', 'Please enter a valid email!')
     return render(request, "registration/update.html", {"form": user_form})
 
 def user_logout(request):
