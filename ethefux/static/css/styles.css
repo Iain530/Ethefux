@@ -62,3 +62,9 @@ body.ethefux button:hover, body.ethefux .btn:hover {
 img.round-corner {
 	border-radius: 4px;
 }
+
+body.ethefux div#error-div {
+	font-size: 70px;
+	text-align: center;
+	width: 100%;
+}

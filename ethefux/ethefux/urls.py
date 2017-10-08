@@ -20,6 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 
+handler400 = 'ethefux_app.views.handler400'
+handler403 = 'ethefux_app.views.handler403'
+handler404 = 'ethefux_app.views.handler404'
+handler500 = 'ethefux_app.views.handler500'
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('ethefux_app.urls')),
