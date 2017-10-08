@@ -21,6 +21,7 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def account(request):
     return render(request, 'account.html')
 
@@ -31,15 +32,15 @@ def dashboard(request):
     context_dict["credit_score"] = 100
 
     confirmations = list(DeployConfirmation.objects.filter(confirmer=request.user.user_profile))
-    
+
     prop_lend = list(ContractProposal.objects.filter(lender=request.user.user_profile))
-    for x in prop_lend: 
+    for x in prop_lend:
         x.party = x.borrower
         if x in map(lambda x: x.contract, confirmations):
             x.confirm=True
 
     prop_borrow = list(ContractProposal.objects.filter(borrower=request.user.user_profile))
-    for x in prop_borrow: 
+    for x in prop_borrow:
         x.party = x.lender
         if x in map(lambda x: x.contract, confirmations):
             x.confirm=True

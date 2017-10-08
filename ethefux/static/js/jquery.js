@@ -6,7 +6,7 @@ $(document).ready( function () {
 		$(this).parent().css("color", "#242423");
 
 
-		$(this).parent().append("Accepted") ;
+		$(this).parent().append("<strong>Loan accepted</strong>") ;
 
 	});
 
